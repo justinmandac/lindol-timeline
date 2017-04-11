@@ -2,6 +2,10 @@
   "name": "earthquake",
   "version": "1.0.0",
   "description": "",
+  "repository" : {
+    "type" : "git",
+    "url" : "git://github.com/justinmandac/lindol-timeline.git"
+  },
   "main": "index.js",
   "scripts": {
     "build": "node node_modules/webpack/bin/webpack.js",
