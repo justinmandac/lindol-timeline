@@ -1,9 +1,10 @@
+/* eslint-disable */
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-    entry : './src/app/app.js',
+    entry : './src/main.js',
     output: {
         path: path.resolve(__dirname, 'dist/'),
         filename: 'app.bundle.js'
