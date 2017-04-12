@@ -2,9 +2,11 @@ const URL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?' +
             'format=geojson&' +
             'orderby=time&' +
             'eventtype=earthquake&' +
-            'latitude=14.5995&' +
-            'longitude=120.9842&' +
-            'maxradiuskm=1000';
+            'latitude=12.8797&' + // PH latitude
+            'longitude=121.7740&' + // PH longitude
+            // 700 km radius from coords. Used the sqrt of PH area as radius
+            // plus a ~200km fudge factor
+            'maxradiuskm=700';
 
 export default function loadData() {
   return new Promise((resolve, reject) => {
