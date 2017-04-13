@@ -6,5 +6,11 @@ module.exports = {
     target: 'node',
     externals: [
         nodeExternals()
-    ]
+    ],
+    resolve: {
+        modules: [
+            path.resolve('./src'),
+            //path.resolve('./node_modules')
+        ]
+    }
 };
