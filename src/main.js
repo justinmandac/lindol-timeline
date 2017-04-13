@@ -11,9 +11,11 @@ const lat = 12.8797; // PH Latitude
 const lng = 121.7740; // PH Longitude
 const radius = 700; // Approx radius of PH around coords. Used the sqrt of PH area as radius
 // plus a ~200km fudge factor
+let ref;
+const AppRender = <App lat={lat} lng={lng} ref={ (app) => { ref = app; } }/>;
 
-API(lat, lng, radius).then((xhr) => {
-    console.log(xhr);
+API(lat, lng, radius).then((data) => {
+    ref.setData(data);
 });
 
-ReactDOM.render(<App lat={lat} lng={lng} />, document.getElementById('root'));
+ReactDOM.render(AppRender, document.getElementById('root'));

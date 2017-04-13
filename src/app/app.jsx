@@ -12,13 +12,17 @@ class App extends Component {
       debug: false,
       lat: props.lat,
       lng: props.lng,
+      google: null,
+      map: null,
+      data: {},
     };
   }
 
   componentDidMount() {
+    // Load Google Maps
     GoogleMapsLoader.load((google) => {
       const el = this.mapContainer;
-      new google.maps.Map(el, {
+      const map = new google.maps.Map(el, {
         zoom: 5,
         center: {
           lat: this.state.lat,
@@ -26,6 +30,33 @@ class App extends Component {
         },
         mapTypeId: 'terrain',
       }); /* eslint no-new: "off" */
+
+      // initialize map
+
+      map.data.setStyle((item) => {
+        const magnitude = item.f.mag;
+        return {
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: 'red',
+            fillOpacity: 0.2,
+            scale: (magnitude ** 2) / 2,
+            strokeColor: 'white',
+            strokeWeight: 0.5,
+          },
+        };
+      });
+
+      this.setState({
+        google,
+        map,
+      });
+    });
+  }
+
+  setData(data) {
+    this.setState({
+      data,
     });
   }
 
@@ -34,7 +65,15 @@ class App extends Component {
       width: '100%',
       height: '100vh',
     };
+    const { data, map } = this.state;
 
+    if (map !== null) {
+      map.data.addGeoJson(data);
+    }
+
+    console.debug(this.state.google, data);
+
+    // console.debug(markers)
     return (<div className="app">
       <div
         id="map"
