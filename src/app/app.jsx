@@ -5,14 +5,13 @@ import GoogleMapsLoader from 'google-maps';
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
 
-//            'latitude=12.8797&' + // PH latitude
-            // 'longitude=121.7740&
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       debug: false,
+      lat: props.lat,
+      lng: props.lng,
     };
   }
 
@@ -22,8 +21,8 @@ class App extends Component {
       new google.maps.Map(el, {
         zoom: 5,
         center: {
-          lat: 12.8797,
-          lng: 121.7740,
+          lat: this.state.lat,
+          lng: this.state.lng,
         },
         mapTypeId: 'terrain',
       }); /* eslint no-new: "off" */
@@ -47,8 +46,9 @@ class App extends Component {
   }
 }
 
-App.PropTypes = {
-  debug: PropTypes.bool,
+App.propTypes = {
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
 };
 
 export default App;

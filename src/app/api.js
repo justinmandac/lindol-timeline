@@ -1,18 +1,15 @@
 const URL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?' +
             'format=geojson&' +
             'orderby=time&' +
-            'eventtype=earthquake&' +
-            'latitude=12.8797&' + // PH latitude
-            'longitude=121.7740&' + // PH longitude
-            // 700 km radius from coords. Used the sqrt of PH area as radius
-            // plus a ~200km fudge factor
-            'maxradiuskm=700';
+            'eventtype=earthquake';
 
-export default function loadData() {
+
+export default function loadData(lat, lng, radius) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', URL);
+    xhr.open('GET',
+              `${URL}&latitude=${lat}&longitude=${lng}&maxradiuskm=${radius}`);
 
     xhr.onload = ({ target }) => {
       const { status, response } = target;
