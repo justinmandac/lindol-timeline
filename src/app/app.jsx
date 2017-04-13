@@ -32,7 +32,6 @@ class App extends Component {
       }); /* eslint no-new: "off" */
 
       // initialize map
-
       map.data.setStyle((item) => {
         const magnitude = item.f.mag;
         return {
@@ -68,12 +67,15 @@ class App extends Component {
     const { data, map } = this.state;
 
     if (map !== null) {
+      /*
+        TODO:
+          - Filter data by time
+          - Add UI controls for checking time
+          - Add annotations
+      */
       map.data.addGeoJson(data);
     }
 
-    console.debug(this.state.google, data);
-
-    // console.debug(markers)
     return (<div className="app">
       <div
         id="map"
