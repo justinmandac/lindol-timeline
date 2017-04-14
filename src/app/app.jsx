@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
+import debounce from 'debounce';
 
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
+
+function initGetCircle(symbol) {
+  return function getCircle(item) {
+    return {
+      icon: {
+        path: symbol,
+        fillColor: 'red',
+        fillOpacity: 0.2,
+        scale: (item.f.mag ** 2) / 2,
+        strokeColor: 'white',
+        strokeWeight: 0.5,
+      },
+    };
+  };
+}
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +31,7 @@ class App extends Component {
       google: null,
       map: null,
       data: {},
+      selectedEvent: {},
     };
   }
 
@@ -31,20 +48,16 @@ class App extends Component {
         mapTypeId: 'terrain',
       }); /* eslint no-new: "off" */
 
-      // initialize map
-      map.data.setStyle((item) => {
-        const magnitude = item.f.mag;
-        return {
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            fillColor: 'red',
-            fillOpacity: 0.2,
-            scale: (magnitude ** 2) / 2,
-            strokeColor: 'white',
-            strokeWeight: 0.5,
-          },
-        };
-      });
+      // initialize map data points style
+      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE));
+      map.data.addListener('click', debounce(
+        (e) => {
+          console.debug(e.feature.f.time);
+          this.setState({
+            selectedEvent: e.feature.f,
+          });
+        }, 200));
+
 
       this.setState({
         google,
@@ -62,9 +75,9 @@ class App extends Component {
   render() {
     const mapStyles = {
       width: '100%',
-      height: '100vh',
+      height: 'calc(100vh - 64px)',
     };
-    const { data, map } = this.state;
+    const { data, map, selectedEvent } = this.state;
 
     if (map !== null) {
       /*
@@ -83,6 +96,14 @@ class App extends Component {
         className="mapContainer"
         style={mapStyles}
       />
+      <div className="event-details">
+        <div className="event-details__title">
+          { selectedEvent.title }
+        </div>
+        <div className="event-details__time">
+          { selectedEvent.time ? (new Date(selectedEvent.time)).toISOString() : '' }
+        </div>
+      </div>
     </div>);
   }
 }

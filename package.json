@@ -11,8 +11,8 @@
     "build": "node node_modules/webpack/bin/webpack.js",
     "devserver": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base dist/",
     "test": "node node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.config-test.js \"src/app/test/*.test.js\"",
-    "preexport" : "rm -rf docs/; mkdir docs/",
-    "export" : "npm run build;cp -r dist/ docs/"
+    "preexport": "rm -rf docs/; mkdir docs/",
+    "export": "npm run build;cp -r dist/ docs/"
   },
   "author": "justinmandac",
   "license": "ISC",
@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "accoutrement-reset": "^1.0.2",
+    "debounce": "^1.0.0",
     "google-maps": "^3.2.1",
     "prop-types": "^15.5.8",
     "react": "^15.5.3",
