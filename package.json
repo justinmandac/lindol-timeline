@@ -12,9 +12,9 @@
     "devserver": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base dist/",
     "test": "node node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.config-test.js \"src/app/test/*.test.js\"",
     "preexport" : "rm -rf docs/; mkdir docs/",
-    "export" : "cp -r dist/ docs/"
+    "export" : "npm run build;cp -r dist/ docs/"
   },
-  "author": "",
+  "author": "justinmandac",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.24.1",
