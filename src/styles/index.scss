@@ -2,3 +2,18 @@
 @import 'bourbon/bourbon';
 @import 'neat/neat';
 
+.container {
+    @include grid-container;
+}
+
+.event-details {
+    padding: 8px;
+}
+
+.event-details__wrapper {
+    @include grid-column(4);
+}
+
+.event-details__controls {
+    @include grid-column(8);
+}

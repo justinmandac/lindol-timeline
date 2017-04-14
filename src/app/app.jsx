@@ -96,12 +96,17 @@ class App extends Component {
         className="mapContainer"
         style={mapStyles}
       />
-      <div className="event-details">
-        <div className="event-details__title">
-          { selectedEvent.title }
+      <div className="event-details container">
+        <div className="event-details__wrapper">
+          <div className="event-details__title">
+            { selectedEvent.title }
+          </div>
+          <div className="event-details__time">
+            { selectedEvent.time ? (new Date(selectedEvent.time)).toISOString() : '' }
+          </div>
         </div>
-        <div className="event-details__time">
-          { selectedEvent.time ? (new Date(selectedEvent.time)).toISOString() : '' }
+        <div className="event-details__controls">
+          Controls
         </div>
       </div>
     </div>);
