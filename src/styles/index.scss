@@ -12,6 +12,11 @@
 
 .event-details__wrapper {
     @include grid-column(4);
+    /*
+        use padding to prevent the column from collapsing
+        when there's still no event selected.
+    */
+    padding: 1px;
 }
 
 .event-details__controls {

@@ -2,9 +2,24 @@ const URL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?' +
             'format=geojson&' +
             'orderby=time&' +
             'eventtype=earthquake';
+/**
+ * @function transformDate
+ * @param {number} longDate
+ * @return {Date}
+ */
+export function transformDate(longDate) {
+  return new Date(longDate);
+}
 
-
-export default function loadData(lat, lng, radius) {
+/**
+ * @function loadData
+ * @param {number} lat
+ * @param {number} lng
+ * @param {number} radius
+ *
+ * @return {Promise}
+*/
+function loadData(lat, lng, radius) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
@@ -30,3 +45,5 @@ export default function loadData(lat, lng, radius) {
   });
 }
 
+
+export default loadData;
