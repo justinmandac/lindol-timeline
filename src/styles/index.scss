@@ -2,12 +2,21 @@
 @import 'bourbon/bourbon';
 @import 'neat/neat';
 
+html, body {
+    font-size: 16px;
+    line-height: 16px;
+    font-family: sans-serif;
+}
+
 .container {
     @include grid-container;
 }
 
 .event-details {
     padding: 8px;
+    background-color: #757575;
+    color: #FFF;
+    height: 64px;
 }
 
 .event-details__wrapper {

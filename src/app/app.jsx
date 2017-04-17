@@ -67,8 +67,9 @@ class App extends Component {
 
   render() {
     const { data, map, selectedEvent, filter } = this.state;
+    const isMapReady = map !== null;
 
-    if (map !== null) {
+    if (isMapReady) {
       map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, defaultComparator(filter)));
       map.data.addGeoJson(data);
     }
