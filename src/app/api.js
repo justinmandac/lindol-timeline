@@ -25,9 +25,13 @@ export function transformDate(longDate) {
 function loadData(lat, lng, radius) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
+    const then = new Date();
+
+    then.setDate((new Date()).getDate() - 100);
 
     xhr.open('GET',
-              `${URL}&latitude=${lat}&longitude=${lng}&maxradiuskm=${radius}`);
+              `${URL}&starttime=${then.toISOString()}&latitude=${
+                lat}&longitude=${lng}&maxradiuskm=${radius}`);
 
     xhr.onload = ({ target }) => {
       const { status, response } = target;
