@@ -6,12 +6,14 @@ const EventDetails = props => <div className="event-details__wrapper">
     { props.title }
   </div>
   <div className="event-details__time">
-    { props.time ? (new Date(props.time)).toString() : '' }
+    { props.time ?
+     (new Date(props.time)).toString().split('(').shift() :
+     ''}
   </div>
 </div>;
 
 EventDetails.defaultProps = {
-  title: '',
+  title: 'Click on a marker for more information.',
   time: 0,
 };
 
