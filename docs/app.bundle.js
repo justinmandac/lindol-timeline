@@ -10067,8 +10067,11 @@ function transformDate(longDate) {
 function loadData(lat, lng, radius) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
+    var then = new Date();
 
-    xhr.open('GET', URL + '&latitude=' + lat + '&longitude=' + lng + '&maxradiuskm=' + radius);
+    then.setDate(new Date().getDate() - 100);
+
+    xhr.open('GET', URL + '&starttime=' + then.toISOString() + '&latitude=' + lat + '&longitude=' + lng + '&maxradiuskm=' + radius);
 
     xhr.onload = function (_ref) {
       var target = _ref.target;
