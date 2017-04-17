@@ -22,3 +22,8 @@
 .event-details__controls {
     @include grid-column(8);
 }
+
+.mapContainer {
+    width: 100%;
+    height: calc(100vh - 64px);    
+}
