@@ -82,7 +82,7 @@ class App extends Component {
       />
       <div className="event-details container">
         <EventDetails title={selectedEvent.title} time={selectedEvent.time} />
-        <EventControls onChange={this.handleOnChange} />
+        <EventControls onChange={this.handleOnChange} value={filter}/>
       </div>
     </div>);
   }

@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const EventControls = (props) => <div className="event-details__controls" onChange={props.onChange}>
-    <input type="radio" id="timeSelector-7d" name="timeSelection" value="7" /> 7 Days Ago
-    <input type="radio" id="timeSelector-30d" name="timeSelection" value="30" /> 30 Days Ago
+const EventControls = props => <div className="event-details__controls" onChange={props.onChange}>
+  <input type="range" id="filterInput" min="0" max="100" step="1" />
+  <label htmlFor="filterInput">{props.value} Days ago</label><br />
+</div>;
 
-    <input type="range" min="0" max="100" step="1" />
-</div>
+EventControls.defaultProps = {
+  onChange: () => {},
+  value: 0,
+};
+
+EventControls.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.number,
+};
 
 export default EventControls;
