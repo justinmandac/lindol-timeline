@@ -4,7 +4,7 @@ import GoogleMapsLoader from 'google-maps';
 import debounce from 'debounce';
 import EventDetails from './event-details.jsx';
 import EventControls from './event-controls.jsx';
-import initGetCircle, { defaultComparator } from './init-get-circle.js';
+import initGetCircle, { dailyComparator } from './init-get-circle.js';
 
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
@@ -70,7 +70,7 @@ class App extends Component {
     const isMapReady = map !== null;
 
     if (isMapReady) {
-      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, defaultComparator(filter)));
+      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, dailyComparator(filter)));
       map.data.addGeoJson(data);
     }
 

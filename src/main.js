@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 import App from 'app/app.jsx';
 import API from 'app/api';
-
+// TODO: Move API call to app and enable acquisition of events 100 days prior to current date
 const lat = 12.8797; // PH Latitude
 const lng = 121.7740; // PH Longitude
 const radius = 942; // Approx radius of PH around coords. Used the sqrt of PH area as radius

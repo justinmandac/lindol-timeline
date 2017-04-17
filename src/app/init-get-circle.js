@@ -29,4 +29,17 @@ export const defaultComparator = filter => (time) => {
   return time > min.getTime() && time <= now.getTime();
 };
 
+export const dailyComparator = filter => (time) => {
+  const now = new Date();
+  const then = new Date(); // the current date less 'filter' days ago
+  const eventDate = new Date(time);
+  // go back in time
+  then.setDate(now.getDate() - filter);
+
+  const thenString = then.toString().split(' ').slice(0, 4).join(' ');
+  const eventString = eventDate.toString().split(' ').slice(0, 4).join(' ');
+
+  return thenString === eventString;
+};
+
 export default initGetCircle;

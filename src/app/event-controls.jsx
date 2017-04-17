@@ -6,6 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const getDaysAgo = (days) => {
+  const then = new Date();
+
+  then.setDate((new Date()).getDate() - days);
+
+  return then.toString().split(' ').slice(0, 4).join(' ');
+};
+
 const EventControls = props => <div className="event-details__controls" onChange={props.onChange}>
   <input
     autoFocus
@@ -17,7 +25,7 @@ const EventControls = props => <div className="event-details__controls" onChange
     step="1"
   /> <br />
 
-  <label htmlFor="filterInput">{props.value} Day(s) ago</label>
+  <label htmlFor="filterInput">{props.value} Day(s) ago. {getDaysAgo(props.value)}</label>
 </div>;
 
 EventControls.defaultProps = {
