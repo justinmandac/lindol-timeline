@@ -13,6 +13,9 @@ export function transformDate(longDate) {
 
 /**
  * @function loadData
+ *
+ * Loads data from the USGS.
+ *
  * @param {number} lat
  * @param {number} lng
  * @param {number} radius

@@ -1,5 +1,6 @@
-
-
+/**
+ * @fileoverview Exports methods used for rendering event (read:earthquake) markers.
+*/
 function initGetCircle(symbol, timeComparator) {
   return function getCircle(item) {
     const style = {
@@ -13,7 +14,7 @@ function initGetCircle(symbol, timeComparator) {
       },
     };
 
-    if(typeof timeComparator === 'function') {
+    if (typeof timeComparator === 'function') {
       style.visible = timeComparator(item.f.time);
     }
 
@@ -22,10 +23,10 @@ function initGetCircle(symbol, timeComparator) {
 }
 
 export const defaultComparator = filter => (time) => {
-    const min = new Date();
-    const now = new Date();
-    min.setDate(now.getDate() - filter);
-    return time > min.getTime() && time <= now.getTime();
+  const min = new Date();
+  const now = new Date();
+  min.setDate(now.getDate() - filter);
+  return time > min.getTime() && time <= now.getTime();
 };
 
 export default initGetCircle;

@@ -60,7 +60,7 @@ class App extends Component {
 
   handleOnChange = (evt) => {
     this.setState({
-      filter: evt.target.value
+      filter: parseInt(evt.target.value, 10)
     })
 
   }
