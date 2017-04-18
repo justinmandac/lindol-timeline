@@ -47,8 +47,10 @@
     "accoutrement-reset": "^1.0.2",
     "debounce": "^1.0.0",
     "google-maps": "^3.2.1",
+    "material-ui": "^0.17.4",
     "prop-types": "^15.5.8",
     "react": "^15.5.3",
-    "react-dom": "^15.5.3"
+    "react-dom": "^15.5.3",
+    "react-tap-event-plugin": "^2.0.1"
   }
 }
