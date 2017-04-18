@@ -6,6 +6,8 @@ import EventDetails from './event-details.jsx';
 import EventControls from './event-controls.jsx';
 import initGetCircle, { dailyComparator } from './init-get-circle.js';
 
+import AppBar from 'material-ui/AppBar';
+
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
 
@@ -75,6 +77,7 @@ class App extends Component {
     }
 
     return (<div className="app">
+      <AppBar style={{position: 'fixed'}}/>
       <div
         id="map"
         ref={(mapContainer) => { this.mapContainer = mapContainer; }}
