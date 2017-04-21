@@ -76,7 +76,7 @@ class App extends Component {
     const { data, map, selectedEvent, filter } = this.state;
     const isMapReady = map !== null;
     const paperStyle = {
-      maxWidth: '300px',
+      width: '100%',
       margin: '0 auto',
       height: '100%',
       padding: '8px'
@@ -94,12 +94,14 @@ class App extends Component {
         className="mapContainer"
       />
       <div className="event-details">
+      <div className="event-details__paper-wrapper">
             <Paper style={paperStyle}>
               <div className="container">
                 <EventControls onChange={this.handleOnChange} value={filter}/>
                 <EventDetails title={selectedEvent.title} time={selectedEvent.time} />  
               </div>              
-            </Paper>        
+            </Paper> 
+      </div>       
 
       </div>
     </div>);
