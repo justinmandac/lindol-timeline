@@ -63,6 +63,9 @@ html, body {
   content: "";
   display: block; }
 
+/**
+    #EVENT-DETAILS
+*/
 .event-details {
   color: #434343;
   height: 80px;
@@ -96,6 +99,9 @@ html, body {
   width: 100%;
   height: 100vh; }
 
+/**
+    #HEADER
+*/
 .header {
   position: fixed;
   top: 0px;
@@ -109,7 +115,8 @@ html, body {
   padding: 8px; }
 
 .header .menu-icon {
-  float: left; }
+  float: left;
+  cursor: pointer; }
 
 @media only screen and (min-width: 680px) {
   .event-details__wrapper {
