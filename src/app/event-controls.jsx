@@ -30,7 +30,6 @@ class EventControls extends Component {
 
   render() {    
     const { value } = this.props;
-    console.debug(this.props);
     return (<div className="event-details__controls">     
       <Slider
         value={value/100}

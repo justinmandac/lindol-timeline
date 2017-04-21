@@ -22,7 +22,6 @@ class EarthquakeAppHeader extends Component {
   render() {
     const { onMenuClicked, onDateChanged, value } = this.props;
     const dateFromValue = getDateAgo(value);
-    console.debug('dateFromValue', value, dateFromValue);
     return (<header className="header">
       <IconButton 
         style={menuButtonStyles}

@@ -50,7 +50,6 @@ class App extends Component {
         mapTypeId: 'roadmap',
       }); /* eslint no-new: "off" */
       const clickHandler = (e) => {
-          console.log(e);
           e.ya.preventDefault();
           this.setState({
             selectedEvent: e.feature.f,
@@ -86,7 +85,6 @@ class App extends Component {
   }
 
   handleMenuClicked = () => {
-    console.log('menu clicked');
     this.setState((prevState, props) => {
       return {
         sidebarOpened: !prevState.sidebarOpened
@@ -119,12 +117,12 @@ class App extends Component {
         />
         <div className="event-details">
           <div className="event-details__paper-wrapper">
-                <Paper style={paperStyle}>
-                  <div className="container">
-                    <EventControls onChange={this.handleOnChange} value={filter}/>
-                    <EventDetails title={selectedEvent.title} />  
-                  </div>              
-                </Paper> 
+            <Paper style={paperStyle}>
+              <div className="container">
+                <EventControls onChange={this.handleOnChange} value={filter}/>
+                <EventDetails title={selectedEvent.title} />  
+              </div>              
+            </Paper> 
           </div>       
         </div>        
       </section>
