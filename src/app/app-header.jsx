@@ -8,9 +8,15 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 import getDaysAgo from './utils/date-formatter';
-
+const menuButtonStyles = {
+  cursor: 'pointer'
+};
 const EarthquakeAppHeader = props => <header className="header">
-  <IconButton className="menu-icon">
+  <IconButton 
+    style={menuButtonStyles}
+    className="menu-icon"
+    onTouchTap={props.onMenuClicked}
+  >
     <MenuIcon />
   </IconButton>
   <Paper className="card header__date-card">
@@ -20,10 +26,12 @@ const EarthquakeAppHeader = props => <header className="header">
 
 EarthquakeAppHeader.defaultProps = {
   value: 0,
+  onMenuClicked: () => {}
 };
 
 EarthquakeAppHeader.propTypes = {
   value: PropTypes.number,
+  onMenuClicked: PropTypes.func
 };
 
 export default EarthquakeAppHeader;

@@ -16,6 +16,10 @@ html, body {
     @include grid-container;
 }
 
+/**
+    #EVENT-DETAILS
+*/
+
 .event-details {       
     color: #434343;
     height: $controls-height;
@@ -51,7 +55,9 @@ html, body {
     height: 100vh;
 }
 
-
+/**
+    #HEADER
+*/
 
 .header {
     position: fixed;
@@ -69,6 +75,7 @@ html, body {
 
 .header .menu-icon {
     float: left;
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 680px) {
@@ -83,5 +90,4 @@ html, body {
     .event-details__paper-wrapper {
         max-width: 600px;
     }
-
 }

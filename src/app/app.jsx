@@ -9,8 +9,17 @@ import initGetCircle, { dailyComparator } from './init-get-circle.js';
 import Paper from 'material-ui/Paper';
 import EarthquakeAppHeader from './app-header.jsx';
 
+import MainDrawer from 'material-ui/Drawer';
+
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
+
+const paperStyle = {
+  width: '100%',
+  margin: '0 auto',
+  height: '100%',
+  padding: '8px'
+};
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +31,8 @@ class App extends Component {
       map: null,
       data: {},
       selectedEvent: {},
-      filter: 0 // filter value in days
+      filter: 0,// filter value in days,
+      sidebarOpened: false,
     };
   }
 
@@ -37,19 +47,17 @@ class App extends Component {
           lat: this.state.lat,
           lng: this.state.lng,
         },
-        mapTypeId: 'terrain',
+        mapTypeId: 'roadmap',
       }); /* eslint no-new: "off" */
-
-      // initialize map data points style
-      map.data.addListener('click', debounce(
-        (e) => {
+      const clickHandler = (e) => {
           console.log(e);
           e.ya.preventDefault();
           this.setState({
             selectedEvent: e.feature.f,
           });
-        }, 200));
-
+      };
+      // initialize map data points style
+      map.data.addListener('click', debounce(clickHandler, 200));
 
       this.setState({
         google,
@@ -68,42 +76,57 @@ class App extends Component {
     this.setState({
       filter: parseInt(value, 10),
       selectedEvent: {}
-    })
+    });
+  }
 
+  handleMenuClicked = () => {
+    console.log('menu clicked');
+    this.setState((prevState, props) => {
+      return {
+        sidebarOpened: !prevState.sidebarOpened
+      };
+    });
   }
 
   render() {
-    const { data, map, selectedEvent, filter } = this.state;
+    const { data, map, selectedEvent, filter, sidebarOpened } = this.state;
     const isMapReady = map !== null;
-    const paperStyle = {
-      width: '100%',
-      margin: '0 auto',
-      height: '100%',
-      padding: '8px'
-    };
+
     if (isMapReady) {
-      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, dailyComparator(filter)));
+      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, 
+                                     dailyComparator(filter)));
       map.data.addGeoJson(data);
     }
 
     return (<div className="app">      
-      <EarthquakeAppHeader value={filter}></EarthquakeAppHeader>
-      <div
-        id="map"
-        ref={(mapContainer) => { this.mapContainer = mapContainer; }}
-        className="mapContainer"
-      />
-      <div className="event-details">
-      <div className="event-details__paper-wrapper">
-            <Paper style={paperStyle}>
-              <div className="container">
-                <EventControls onChange={this.handleOnChange} value={filter}/>
-                <EventDetails title={selectedEvent.title} time={selectedEvent.time} />  
-              </div>              
-            </Paper> 
-      </div>       
-
-      </div>
+      <EarthquakeAppHeader value={filter} onMenuClicked={this.handleMenuClicked}>        
+      </EarthquakeAppHeader>
+      <section>
+        <div
+          id="map"
+          ref={(mapContainer) => { this.mapContainer = mapContainer; }}
+          className="mapContainer"
+        />
+        <div className="event-details">
+          <div className="event-details__paper-wrapper">
+                <Paper style={paperStyle}>
+                  <div className="container">
+                    <EventControls onChange={this.handleOnChange} value={filter}/>
+                    <EventDetails title={selectedEvent.title} />  
+                  </div>              
+                </Paper> 
+          </div>       
+        </div>        
+      </section>
+      <MainDrawer 
+        open={sidebarOpened}
+        docked={false}
+        width={280}
+        onRequestChange={(open) => this.setState({
+          sidebarOpened: open
+        })}>
+        Menu
+      </MainDrawer>
     </div>);
   }
 }
