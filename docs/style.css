@@ -64,10 +64,12 @@ html, body {
   display: block; }
 
 .event-details {
-  padding: 8px;
-  background-color: #757575;
-  color: #FFF;
-  height: 100px; }
+  color: #434343;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 100; }
 
 .event-details__wrapper {
   width: calc(33.33333% - 26.66667px);
@@ -86,7 +88,7 @@ html, body {
 
 .mapContainer {
   width: 100%;
-  height: calc(100vh - $controls-height); }
+  height: 100vh; }
 
 .header {
   position: fixed;
@@ -95,10 +97,13 @@ html, body {
   width: 100%; }
 
 .header__date-card {
-  margin: 14px auto 0 auto;
+  margin: 8px auto 0 auto;
   width: 200px;
   text-align: center;
   padding: 8px; }
+
+.header .menu-icon {
+  float: left; }
 
 @media only screen and (max-width: 320px) {
   .event-details__wrapper {

@@ -25,10 +25,6 @@ html, body {
     z-index: 100;
 }
 
-// .event-details__container {
-//     max-width: 300px;
-//     margin: 0 auto;
-// }
 
 .event-details__wrapper {
     @include grid-column(4);
