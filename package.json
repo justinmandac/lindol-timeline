@@ -14,7 +14,7 @@
     "preexport": "rm -rf docs/; mkdir docs/;",
     "export": "cp -r dist/ docs/",
     "build:gh-pages" : "npm run build;npm run export",
-    "postbuild:gh-pages" : "git commit -am \"Updated GH Pages\""
+    "postbuild:gh-pages" : "git commit -am \"Updated GH Pages\";git push origin master"
   },
   "author": "justinmandac",
   "license": "ISC",
