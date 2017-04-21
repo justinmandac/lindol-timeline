@@ -50,10 +50,14 @@ html, body {
 }
 
 .header__date-card {
-    margin: 14px auto 0 auto;
+    margin: 8px auto 0 auto;
     width: 200px;
     text-align: center;
     padding: 8px;
+}
+
+.header .menu-icon {
+    float: left;
 }
 
 @media only screen and (max-width: 320px) {
