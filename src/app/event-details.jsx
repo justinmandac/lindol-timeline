@@ -5,11 +5,6 @@ const EventDetails = props => <div className="event-details__wrapper">
   <div className="event-details__title">
     { props.title }
   </div>
-  <div className="event-details__time">
-    { props.time ?
-     (new Date(props.time)).toString().split('(').shift() :
-     ''}
-  </div>
 </div>;
 
 EventDetails.defaultProps = {
