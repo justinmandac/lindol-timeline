@@ -3,30 +3,44 @@
  * This component handles user input used to filter the events being displayed
  * in the map.
 */
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Slider from 'material-ui/slider';
 
-const getDaysAgo = (days) => {
-  const then = new Date();
-
-  then.setDate((new Date()).getDate() - days);
-
-  return then.toString().split(' ').slice(0, 4).join(' ');
+const sliderStyles = {
+  marginTop: '0px',
+  marginBottom: '0px',
 };
 
-const EventControls = props => <div className="event-details__controls" onChange={props.onChange}>
-  <input
-    autoFocus
-    defaultValue="0"
-    type="range"
-    id="filterInput"
-    min="0"
-    max="100"
-    step="1"
-  /> <br />
+class EventControls extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0,
+    };
+  }
 
-  <label htmlFor="filterInput">{props.value} Day(s) ago. {getDaysAgo(props.value)}</label>
-</div>;
+  handleOnChange = (evt, val) => {    
+    this.props.onChange(evt, val*100);
+    this.setState({
+      value: val,
+    });
+  }
+
+  render() {    
+    const { value } = this.state;
+
+    return (<div className="event-details__controls">     
+      <Slider
+        value={value}
+        className="event-slider"
+        sliderStyle={sliderStyles}
+        onChange={this.handleOnChange}
+      />
+    </div>);
+  }
+}
+
 
 EventControls.defaultProps = {
   onChange: () => {},
@@ -35,7 +49,6 @@ EventControls.defaultProps = {
 
 EventControls.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.number,
 };
 
 export default EventControls;

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import debounce from 'debounce';
+
 import EventDetails from './event-details.jsx';
 import EventControls from './event-controls.jsx';
 import initGetCircle, { dailyComparator } from './init-get-circle.js';
-
-import AppBar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
+import EarthquakeAppHeader from './app-header.jsx';
 
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
@@ -30,6 +31,7 @@ class App extends Component {
     GoogleMapsLoader.load((google) => {
       const el = this.mapContainer;
       const map = new google.maps.Map(el, {
+        disableDefaultUI: true,
         zoom: 5,
         center: {
           lat: this.state.lat,
@@ -41,6 +43,8 @@ class App extends Component {
       // initialize map data points style
       map.data.addListener('click', debounce(
         (e) => {
+          console.log(e);
+          e.ya.preventDefault();
           this.setState({
             selectedEvent: e.feature.f,
           });
@@ -60,9 +64,10 @@ class App extends Component {
     });
   }
 
-  handleOnChange = (evt) => {
+  handleOnChange = (evt, value) => {    
     this.setState({
-      filter: parseInt(evt.target.value, 10)
+      filter: parseInt(value, 10),
+      selectedEvent: {}
     })
 
   }
@@ -76,16 +81,16 @@ class App extends Component {
       map.data.addGeoJson(data);
     }
 
-    return (<div className="app">
-      <AppBar style={{position: 'fixed'}}/>
+    return (<div className="app">      
+      <EarthquakeAppHeader value={filter}></EarthquakeAppHeader>
       <div
         id="map"
         ref={(mapContainer) => { this.mapContainer = mapContainer; }}
         className="mapContainer"
       />
       <div className="event-details container">
-        <EventDetails title={selectedEvent.title} time={selectedEvent.time} />
         <EventControls onChange={this.handleOnChange} value={filter}/>
+        <EventDetails title={selectedEvent.title} time={selectedEvent.time} />        
       </div>
     </div>);
   }
