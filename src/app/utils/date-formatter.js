@@ -45,7 +45,9 @@ export function getDateAgo(value) {
  * @return {number}
 */
 export function getDiff(a, b) {
-  return a.getDate() - b.getDate();
+  const timeDiff = Math.abs(a.getTime() - b.getTime());
+    
+  return Math.ceil(timeDiff / (1000 * 3600 * 24));
 }
 
 /**

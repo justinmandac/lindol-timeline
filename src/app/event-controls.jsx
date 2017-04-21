@@ -29,11 +29,11 @@ class EventControls extends Component {
   }
 
   render() {    
-    const { value } = this.state;
-
+    const { value } = this.props;
+    console.debug(this.props);
     return (<div className="event-details__controls">     
       <Slider
-        value={value}
+        value={value/100}
         className="event-slider"
         sliderStyle={sliderStyles}
         onChange={this.handleOnChange}
@@ -50,6 +50,7 @@ EventControls.defaultProps = {
 
 EventControls.propTypes = {
   onChange: PropTypes.func,
+  value: PropTypes.number
 };
 
 export default EventControls;

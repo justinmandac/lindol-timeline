@@ -8,8 +8,8 @@ import EventControls from './event-controls.jsx';
 import initGetCircle, { dailyComparator } from './init-get-circle.js';
 import Paper from 'material-ui/Paper';
 import EarthquakeAppHeader from './app-header.jsx';
-
 import MainDrawer from 'material-ui/Drawer';
+import { getDiff } from './utils/date-formatter';
 
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
@@ -79,6 +79,12 @@ class App extends Component {
     });
   }
 
+  handleDateChanged = (evt, date) => {
+    this.setState({
+      filter: getDiff(new Date(), date)
+    });
+  }
+
   handleMenuClicked = () => {
     console.log('menu clicked');
     this.setState((prevState, props) => {
@@ -99,7 +105,11 @@ class App extends Component {
     }
 
     return (<div className="app">      
-      <EarthquakeAppHeader value={filter} onMenuClicked={this.handleMenuClicked}>        
+      <EarthquakeAppHeader 
+        value={filter} 
+        onMenuClicked={this.handleMenuClicked}
+        onDateChanged={this.handleDateChanged}
+      >        
       </EarthquakeAppHeader>
       <section>
         <div
