@@ -37,32 +37,34 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // Load Google Maps
-    GoogleMapsLoader.load((google) => {
+    const clickHandler = (e) => {
+        e.ya.preventDefault();
+        this.setState({
+          selectedEvent: e.feature.f,
+        });
+    };
+    const mapsCallback = (google) => {
+      const {lat, lng} = this.state;
       const el = this.mapContainer;
       const map = new google.maps.Map(el, {
         disableDefaultUI: true,
         zoom: 5,
         center: {
-          lat: this.state.lat,
-          lng: this.state.lng,
+          lat: lat,
+          lng: lng,
         },
         mapTypeId: 'roadmap',
       }); /* eslint no-new: "off" */
-      const clickHandler = (e) => {
-          e.ya.preventDefault();
-          this.setState({
-            selectedEvent: e.feature.f,
-          });
-      };
       // initialize map data points style
       map.data.addListener('click', debounce(clickHandler, 200));
-
       this.setState({
         google,
         map,
-      });
-    });
+      });      
+    };
+
+    // Load Google Maps
+    GoogleMapsLoader.load(mapsCallback);
   }
 
   setData(data) {

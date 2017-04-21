@@ -9,9 +9,11 @@ export function formatDate(date) {
   if(date instanceof Date) {
     val = date;
   } else {
+    // return the epoch time if date is invalid
     val = new Date(null);
   }
-
+  // Date.prototype.toString returns the ff. 
+  // ex. Thu Apr 6 2017 14:46:43 GMT+0800 (+08 d)
   return val.toString().split(' ')
         .slice(0, 4) // remove the time and timezone
         .join(' ');
@@ -39,6 +41,9 @@ export function getDateAgo(value) {
 
 /**
  * @function getDiff
+ * Computes for the absolute difference between 2 dates.
+ * Only the absolute difference is necessary since for this application,
+ * we are only dealing with past events. 
  * @param {Date} a
  * @param {Date} b
  * 
@@ -46,7 +51,7 @@ export function getDateAgo(value) {
 */
 export function getDiff(a, b) {
   const timeDiff = Math.abs(a.getTime() - b.getTime());
-    
+
   return Math.ceil(timeDiff / (1000 * 3600 * 24));
 }
 
