@@ -8,18 +8,12 @@ import EventControls from './event-controls.jsx';
 import initGetCircle, { dailyComparator } from './init-get-circle.js';
 import Paper from 'material-ui/Paper';
 import EarthquakeAppHeader from './app-header.jsx';
+import EarthquakeAppBottomBar from './app-bottom-bar.jsx';
 import MainDrawer from 'material-ui/Drawer';
 import { getDiff } from './utils/date-formatter';
 
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
-
-const paperStyle = {
-  width: '100%',
-  margin: '0 auto',
-  height: '100%',
-  padding: '8px'
-};
 
 
 class App extends Component {
@@ -124,16 +118,10 @@ class App extends Component {
           ref={(mapContainer) => { this.mapContainer = mapContainer; }}
           className="mapContainer"
         />
-        <div className="event-details">
-          <div className="event-details__paper-wrapper">
-            <Paper style={paperStyle}>
-              <div className="container">
-                <EventControls onChange={this.handleOnChange} value={filter}/>
-                <EventDetails title={selectedEvent.title} />  
-              </div>              
-            </Paper> 
-          </div>       
-        </div>        
+        <EarthquakeAppBottomBar>
+          <EventControls onChange={this.handleOnChange} value={filter}/>
+          <EventDetails title={selectedEvent.title} />  
+        </EarthquakeAppBottomBar>
       </section>
       <MainDrawer 
         open={sidebarOpened}
@@ -144,7 +132,7 @@ class App extends Component {
         })}>
         Menu
       </MainDrawer>
-    </div>);
+    </div>); // end of app
   }
 }
 
