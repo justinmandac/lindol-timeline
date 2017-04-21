@@ -21,6 +21,7 @@ const paperStyle = {
   padding: '8px'
 };
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +32,7 @@ class App extends Component {
       map: null,
       data: {},
       selectedEvent: {},
+      selectedMarker: {},
       filter: 0,// filter value in days,
       sidebarOpened: false,
     };
@@ -38,10 +40,14 @@ class App extends Component {
 
   componentDidMount() {
     const clickHandler = (e) => {
-        e.ya.preventDefault();
+        console.log(e);
         this.setState({
           selectedEvent: e.feature.f,
+          selectedMarker: e
         });
+        // Center and zoom onto the clicked marker
+        this.state.map.setCenter(e.latLng);
+        this.state.map.setZoom(10);
     };
     const mapsCallback = (google) => {
       const {lat, lng} = this.state;
@@ -76,7 +82,8 @@ class App extends Component {
   handleOnChange = (evt, value) => {    
     this.setState({
       filter: parseInt(value, 10),
-      selectedEvent: {}
+      selectedEvent: {},
+      selectedMarker: {}
     });
   }
 

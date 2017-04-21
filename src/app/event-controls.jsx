@@ -7,10 +7,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'material-ui/slider';
 import Paper from 'material-ui/Paper';
+import Subheader from 'material-ui/Subheader';
 
 const sliderStyles = {
   marginTop: '0px',
   marginBottom: '0px',
+};
+
+const subHeaderStyles = {
+  padding: 0,
+  lineHeight: '18px'
 };
 
 class EventControls extends Component {
@@ -30,7 +36,8 @@ class EventControls extends Component {
 
   render() {    
     const { value } = this.props;
-    return (<div className="event-details__controls">     
+    return (<div className="event-details__controls">
+      <Subheader style={subHeaderStyles}>Filter</Subheader> 
       <Slider
         value={value/100}
         className="event-slider"
