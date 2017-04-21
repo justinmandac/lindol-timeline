@@ -112,11 +112,14 @@ html, body {
   margin: 8px auto 0 auto;
   width: 200px;
   text-align: center;
-  padding: 8px; }
+  padding: 0px 4px; }
 
 .header .menu-icon {
   float: left;
   cursor: pointer; }
+
+#headerDatePicker {
+  text-align: center; }
 
 @media only screen and (min-width: 680px) {
   .event-details__wrapper {
