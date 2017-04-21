@@ -1,11 +1,48 @@
 import chai from 'chai';
-import formatter, { getCurrent } from 'app/utils/date-formatter.js'
+import formatter, 
+      { formatDate, getDaysAgo, getDiff } from 'app/utils/date-formatter.js'
 import sinon from 'sinon';
 
 const assert = chai.assert;
+const EPOCH = 'Thu Jan 01 1970';
 
 describe('Date Formatter Test', () => {
+  describe('test formatDate', () => {
+    it('should be defined', () => {
+      assert.isOk(formatDate, 'formatDate is not OK');
+    });
+
+    it('should return the correct date format', () => {
+      var date1Str = 'Thu Apr 06 2017';
+      var date2Str = 'Mon Mar 20 2017';
+      var tz = ' GMT+0800'
+      
+
+      assert.equal(date1Str, formatDate(new Date(date1Str+tz)));
+      assert.equal(date2Str, formatDate(new Date(date2Str+tz)));
+      assert.equal(EPOCH, formatDate(null));
+      assert.equal(EPOCH, formatDate(undefined));
+      assert.equal(EPOCH, formatDate({}));
+      assert.equal(EPOCH, formatDate(''));
+    });
+  });
+
+  describe('test getDiff', () => {
+    it('should be defined', () => {
+        assert.isOk(getDiff);
+    });
+
+    it('should get the difference between 2 dates', () => {      
+      const d1 = new Date('2017-04-23');
+      const d2 = new Date('2017-04-22');
+
+      assert.equal(1, getDiff(d1, d2));
+    });
+  });
+
+  describe('test getDaysAgo', () => {
     let clock;
+
     beforeEach(() => {
       /**
        * Freeze time to 2017-04-21T00:29:34.568Z
@@ -36,7 +73,7 @@ describe('Date Formatter Test', () => {
 
     it('should return the epoch date when param is invalid',
     () => {
-      const EPOCH = 'Thu Jan 01 1970';
+
 
       assert.equal(EPOCH, formatter(null));
       assert.equal(EPOCH, formatter(undefined));
@@ -45,5 +82,6 @@ describe('Date Formatter Test', () => {
       assert.equal(EPOCH, formatter(''));
       assert.equal(EPOCH, formatter({}));
       assert.equal(EPOCH, formatter(() => {}));  
-    });
+    });      
+  });
 });
