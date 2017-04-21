@@ -2,7 +2,7 @@
 @import 'bourbon/bourbon';
 @import 'neat/neat';
 
-$controls-height: 100px;
+$controls-height: 80px;
 
 html, body {
     font-size: 16px;
@@ -16,12 +16,19 @@ html, body {
     @include grid-container;
 }
 
-.event-details {
-    padding: 8px;
-    background-color: #757575;
-    color: #FFF;
+.event-details {       
+    color: #434343;
     height: $controls-height;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 100;
 }
+
+// .event-details__container {
+//     max-width: 300px;
+//     margin: 0 auto;
+// }
 
 .event-details__wrapper {
     @include grid-column(4);
@@ -38,7 +45,7 @@ html, body {
 
 .mapContainer {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: 100vh;
 }
 
 

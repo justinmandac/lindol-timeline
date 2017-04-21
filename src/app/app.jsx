@@ -75,7 +75,12 @@ class App extends Component {
   render() {
     const { data, map, selectedEvent, filter } = this.state;
     const isMapReady = map !== null;
-
+    const paperStyle = {
+      maxWidth: '300px',
+      margin: '0 auto',
+      height: '100%',
+      padding: '8px'
+    };
     if (isMapReady) {
       map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, dailyComparator(filter)));
       map.data.addGeoJson(data);
@@ -88,9 +93,14 @@ class App extends Component {
         ref={(mapContainer) => { this.mapContainer = mapContainer; }}
         className="mapContainer"
       />
-      <div className="event-details container">
-        <EventControls onChange={this.handleOnChange} value={filter}/>
-        <EventDetails title={selectedEvent.title} time={selectedEvent.time} />        
+      <div className="event-details">
+            <Paper style={paperStyle}>
+              <div className="container">
+                <EventControls onChange={this.handleOnChange} value={filter}/>
+                <EventDetails title={selectedEvent.title} time={selectedEvent.time} />  
+              </div>              
+            </Paper>        
+
       </div>
     </div>);
   }

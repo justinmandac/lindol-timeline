@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'material-ui/slider';
+import Paper from 'material-ui/Paper';
 
 const sliderStyles = {
   marginTop: '0px',
