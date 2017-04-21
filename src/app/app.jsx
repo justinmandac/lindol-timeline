@@ -15,6 +15,14 @@ import { getDiff } from './utils/date-formatter';
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
 
+const generateInfoWindow = (text) => 
+  `<div class="info-window">${text}</div>`
+
+const clearMarker = (marker) => {
+  if(marker !== null) {
+    marker.setMap(null);
+  }
+}
 
 class App extends Component {
   constructor(props) {
@@ -26,22 +34,39 @@ class App extends Component {
       map: null,
       data: {},
       selectedEvent: {},
-      selectedMarker: {},
+      selectedMarker: null,
       filter: 0,// filter value in days,
       sidebarOpened: false,
+      infoWindow: null
     };
   }
 
   componentDidMount() {
     const clickHandler = (e) => {
         console.log(e);
+        const {
+          map, 
+          infoWindow, 
+          google,
+          selectedMarker
+        } = this.state;
+        const content = generateInfoWindow(e.feature.f.title);
+        const marker = new google.maps.Marker({
+          position: e.latLng,
+          map: map
+        });
         this.setState({
           selectedEvent: e.feature.f,
-          selectedMarker: e
+          selectedMarker: marker
         });
         // Center and zoom onto the clicked marker
-        this.state.map.setCenter(e.latLng);
-        this.state.map.setZoom(10);
+        map.setCenter(e.latLng);
+        map.setZoom(10);
+        // display infoWindow but clear existing ones first
+        clearMarker(selectedMarker);
+        infoWindow.setContent(content);
+        infoWindow.open(map, marker);
+
     };
     const mapsCallback = (google) => {
       const {lat, lng} = this.state;
@@ -55,11 +80,12 @@ class App extends Component {
         },
         mapTypeId: 'roadmap',
       }); /* eslint no-new: "off" */
-      // initialize map data points style
+      // initialize map data points style      
       map.data.addListener('click', debounce(clickHandler, 200));
       this.setState({
         google,
         map,
+        infoWindow: new google.maps.InfoWindow()
       });      
     };
 
@@ -73,11 +99,12 @@ class App extends Component {
     });
   }
 
-  handleOnChange = (evt, value) => {    
+  handleOnChange = (evt, value) => {
+    clearMarker(this.state.selectedMarker);
     this.setState({
       filter: parseInt(value, 10),
       selectedEvent: {},
-      selectedMarker: {}
+      selectedMarker: null
     });
   }
 
@@ -119,8 +146,7 @@ class App extends Component {
           className="mapContainer"
         />
         <EarthquakeAppBottomBar>
-          <EventControls onChange={this.handleOnChange} value={filter}/>
-          <EventDetails title={selectedEvent.title} />  
+          <EventControls onChange={this.handleOnChange} value={filter}/>     
         </EarthquakeAppBottomBar>
       </section>
       <MainDrawer 
