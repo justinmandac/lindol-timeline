@@ -19,6 +19,7 @@ const subHeaderStyles = {
   lineHeight: '18px'
 };
 
+/* eslint react/prefer-stateless-function : "off"  */
 class EventControls extends Component {
   constructor(props) {
     super(props);
@@ -27,17 +28,17 @@ class EventControls extends Component {
     };
   }
 
-  handleOnChange = (evt, val) => {    
+  handleOnChange = (evt, val) => {
     this.props.onChange(evt, val*100);
     this.setState({
       value: val,
     });
   }
 
-  render() {    
+  render() {
     const { value } = this.props;
     return (<div className="event-details__controls">
-      <Subheader style={subHeaderStyles}>Filter</Subheader> 
+      <Subheader style={subHeaderStyles}>Filter</Subheader>
       <Slider
         value={value/100}
         className="event-slider"

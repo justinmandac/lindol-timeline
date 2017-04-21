@@ -6,13 +6,13 @@
 export function formatDate(date) {
   let val;
 
-  if(date instanceof Date) {
+  if (date instanceof Date) {
     val = date;
   } else {
     // return the epoch time if date is invalid
     val = new Date(null);
   }
-  // Date.prototype.toString returns the ff. 
+  // Date.prototype.toString returns the ff.
   // ex. Thu Apr 6 2017 14:46:43 GMT+0800 (+08 d)
   return val.toString().split(' ')
         .slice(0, 4) // remove the time and timezone
@@ -25,17 +25,16 @@ export function formatDate(date) {
  * @return {Date}
 */
 export function getDateAgo(value) {
-  let then = new Date();
+  const then = new Date();
   const days = parseFloat(value);
   const now = new Date();
-  let diff;
 
-  if(isNaN(days)) {
+  if (isNaN(days)) {
     return new Date(null);
   }
-  
+
   then.setDate(now.getDate() - days);
-  
+
   return then;
 }
 
@@ -43,10 +42,10 @@ export function getDateAgo(value) {
  * @function getDiff
  * Computes for the absolute difference between 2 dates.
  * Only the absolute difference is necessary since for this application,
- * we are only dealing with past events. 
+ * we are only dealing with past events.
  * @param {Date} a
  * @param {Date} b
- * 
+ *
  * @return {number}
 */
 export function getDiff(a, b) {
@@ -61,7 +60,7 @@ export function getDiff(a, b) {
  * Thu Jan 01 1970 if `days` is undefined, null, or not a number.
  * @param {number} days - number of days to go back to.
  * @return {string}
- * 
+ *
  * @example
  * Assume that today is 2017-04-20
  * getDaysAgo(0); // Fri Apr 20 2017
@@ -73,13 +72,13 @@ const getDaysAgo = (days) => {
   const now = new Date();
   const diff = now.getDate() - days;
 
-  if(typeof days !== 'number' ||
+  if (typeof days !== 'number' ||
      days === Infinity ||
      isNaN(days)) {
-      then = new Date(null);
+    then = new Date(null);
   } else {
     then.setDate(diff);
-  }    
+  }
   return formatDate(then);
 };
 
