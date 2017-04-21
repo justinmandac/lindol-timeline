@@ -14388,12 +14388,19 @@ var App = function (_Component) {
           },
           mapTypeId: 'roadmap'
         }); /* eslint no-new: "off" */
+        var infoWindow = void 0;
         // initialize map data points style      
+        infoWindow = new google.maps.InfoWindow();
+        // clear the marker when the infoWindow's close button
+        // is clicked
+        infoWindow.addListener('closeclick', function (evt) {
+          clearMarker(_this2.state.selectedMarker);
+        });
         map.data.addListener('click', (0, _debounce2.default)(clickHandler, 200));
         _this2.setState({
           google: google,
           map: map,
-          infoWindow: new google.maps.InfoWindow()
+          infoWindow: infoWindow
         });
       };
 

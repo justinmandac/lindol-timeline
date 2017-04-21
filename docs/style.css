@@ -122,13 +122,5 @@ html, body {
   text-align: center; }
 
 @media only screen and (min-width: 680px) {
-  .event-details__wrapper {
-    width: calc(33.33333% - 26.66667px);
-    float: left;
-    margin-left: 20px; }
-  .event-details__controls {
-    width: calc(66.66667% - 33.33333px);
-    float: left;
-    margin-left: 20px; }
   .event-details__paper-wrapper {
     max-width: 600px; } }
