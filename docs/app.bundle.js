@@ -12781,7 +12781,7 @@ var App = function (_Component) {
 
       var isMapReady = map !== null;
       var paperStyle = {
-        maxWidth: '300px',
+        width: '100%',
         margin: '0 auto',
         height: '100%',
         padding: '8px'
@@ -12806,13 +12806,17 @@ var App = function (_Component) {
           'div',
           { className: 'event-details' },
           _react2.default.createElement(
-            _Paper2.default,
-            { style: paperStyle },
+            'div',
+            { className: 'event-details__paper-wrapper' },
             _react2.default.createElement(
-              'div',
-              { className: 'container' },
-              _react2.default.createElement(_eventControls2.default, { onChange: this.handleOnChange, value: filter }),
-              _react2.default.createElement(_eventDetails2.default, { title: selectedEvent.title, time: selectedEvent.time })
+              _Paper2.default,
+              { style: paperStyle },
+              _react2.default.createElement(
+                'div',
+                { className: 'container' },
+                _react2.default.createElement(_eventControls2.default, { onChange: this.handleOnChange, value: filter }),
+                _react2.default.createElement(_eventDetails2.default, { title: selectedEvent.title, time: selectedEvent.time })
+              )
             )
           )
         )
