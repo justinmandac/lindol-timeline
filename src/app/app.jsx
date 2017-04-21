@@ -80,12 +80,19 @@ class App extends Component {
         },
         mapTypeId: 'roadmap',
       }); /* eslint no-new: "off" */
+      let infoWindow;
       // initialize map data points style      
+      infoWindow = new google.maps.InfoWindow();
+      // clear the marker when the infoWindow's close button
+      // is clicked
+      infoWindow.addListener('closeclick', (evt) => {
+        clearMarker(this.state.selectedMarker);
+      });
       map.data.addListener('click', debounce(clickHandler, 200));
       this.setState({
         google,
         map,
-        infoWindow: new google.maps.InfoWindow()
+        infoWindow
       });      
     };
 
