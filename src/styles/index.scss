@@ -83,14 +83,6 @@ html, body {
 }
 
 @media only screen and (min-width: 680px) {
-
-    .event-details__wrapper {
-        @include grid-column(4);
-    }
-
-    .event-details__controls {
-        @include grid-column(8);
-    }
     .event-details__paper-wrapper {
         max-width: 600px;
     }
