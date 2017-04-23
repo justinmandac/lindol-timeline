@@ -25,7 +25,7 @@ EarthquakeAppBottomBar.defaultProps = {
 };
 
 EarthquakeAppBottomBar.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.objectOf(PropTypes.any),
 };
 
 

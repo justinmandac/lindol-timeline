@@ -107,6 +107,11 @@ class App extends Component {
   }
 
   handleOnChange = (evt, value) => {
+    /*
+      Clear any visible markers if the user changes the slider position 
+      in order to prevent orphaned markers and infowindows when the displayed
+      events changes. 
+    */
     clearMarker(this.state.selectedMarker);
     this.setState({
       filter: parseInt(value, 10),
@@ -116,8 +121,13 @@ class App extends Component {
   }
 
   handleDateChanged = (evt, date) => {
-    this.setState({
-      filter: getDiff(new Date(), date)
+    console.log(date);
+    this.setState((prevState, props) => {
+      const current = this.state.data.metadata.generated;
+      const filter = getDiff(new Date(current), date);
+      return {
+        filter,
+      }
     });
   }
 
@@ -139,12 +149,12 @@ class App extends Component {
       map.data.addGeoJson(data);
     }
 
-    return (<div className="app">      
+    return (<div className="app">
       <EarthquakeAppHeader 
         value={filter} 
         onMenuClicked={this.handleMenuClicked}
         onDateChanged={this.handleDateChanged}
-      >        
+      >
       </EarthquakeAppHeader>
       <section>
         <div
@@ -153,7 +163,7 @@ class App extends Component {
           className="mapContainer"
         />
         <EarthquakeAppBottomBar>
-          <EventControls onChange={this.handleOnChange} value={filter}/>     
+          <EventControls onChange={this.handleOnChange} value={filter}/>
         </EarthquakeAppBottomBar>
       </section>
       <MainDrawer 
