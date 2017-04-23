@@ -10,7 +10,7 @@ import Paper from 'material-ui/Paper';
 import EarthquakeAppHeader from './app-header.jsx';
 import EarthquakeAppBottomBar from './app-bottom-bar.jsx';
 import MainDrawer from 'material-ui/Drawer';
-import { getDiff } from './utils/date-formatter';
+import { getDiff, getDateAgo } from './utils/date-formatter';
 
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
@@ -122,8 +122,12 @@ class App extends Component {
 
   handleDateChanged = (evt, date) => {
     console.log(date);
+    const {data} = this.state;
+    const current = data.metadata ? 
+                    data.metadata.generated :
+                    (new Date()).getTime();
+
     this.setState((prevState, props) => {
-      const current = this.state.data.metadata.generated;
       const filter = getDiff(new Date(current), date);
       return {
         filter,
@@ -142,7 +146,10 @@ class App extends Component {
   render() {
     const { data, map, selectedEvent, filter, sidebarOpened } = this.state;
     const isMapReady = map !== null;
-
+    const currentDate = data.metadata ? 
+                        new Date(data.metadata.generated) : 
+                        new Date();
+    const minDate = getDateAgo(100);
     if (isMapReady) {
       map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, 
                                      dailyComparator(filter)));
@@ -152,6 +159,8 @@ class App extends Component {
     return (<div className="app">
       <EarthquakeAppHeader 
         value={filter} 
+        currentDate={currentDate}
+        minDate={minDate}
         onMenuClicked={this.handleMenuClicked}
         onDateChanged={this.handleDateChanged}
       >
