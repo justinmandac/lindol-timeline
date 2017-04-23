@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import debounce from 'debounce';
 
+// Material UI Imports
+import Paper from 'material-ui/Paper';
+import MenuItem from 'material-ui/MenuItem';
+import MainDrawer from 'material-ui/Drawer';
+
 import EventDetails from './event-details.jsx';
 import EventControls from './event-controls.jsx';
 import initGetCircle, { dailyComparator } from './init-get-circle.js';
-import Paper from 'material-ui/Paper';
 import EarthquakeAppHeader from './app-header.jsx';
 import EarthquakeAppBottomBar from './app-bottom-bar.jsx';
-import MainDrawer from 'material-ui/Drawer';
 import { getDiff, getDateAgo } from './utils/date-formatter';
 
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
@@ -87,6 +90,7 @@ class App extends Component {
       // is clicked
       infoWindow.addListener('closeclick', (evt) => {
         clearMarker(this.state.selectedMarker);
+        this.state.map.setZoom(5);
       });
       map.data.addListener('click', debounce(clickHandler, 200));
       this.setState({
@@ -149,7 +153,12 @@ class App extends Component {
     const currentDate = data.metadata ? 
                         new Date(data.metadata.generated) : 
                         new Date();
+    /**
+     * Currently limiting the retrieved dataset from the current date to
+     * the past 100 days. 
+    */
     const minDate = getDateAgo(100);
+
     if (isMapReady) {
       map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, 
                                      dailyComparator(filter)));
@@ -182,7 +191,6 @@ class App extends Component {
         onRequestChange={(open) => this.setState({
           sidebarOpened: open
         })}>
-        Menu
       </MainDrawer>
     </div>); // end of app
   }
