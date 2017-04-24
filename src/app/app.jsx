@@ -35,8 +35,9 @@ class App extends Component {
       lng: props.lng,
       google: null,
       map: null,
-      data: {},
-      selectedEvent: {},
+      data: {}, // data from API
+      zoom: 5, 
+      selectedEvent: null,
       selectedMarker: null,
       filter: 0,// filter value in days,
       sidebarOpened: false,
@@ -45,38 +46,41 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const clickHandler = (e) => {
+    const clickHandler = (ctx) => (e) => {
         console.log(e);
         const {
           map, 
           infoWindow, 
           google,
           selectedMarker
-        } = this.state;
+        } = ctx.state;
         const content = generateInfoWindow(e.feature.f.title);
         const marker = new google.maps.Marker({
           position: e.latLng,
           map: map
         });
-        this.setState({
+
+        ctx.setState({
           selectedEvent: e.feature.f,
-          selectedMarker: marker
+          selectedMarker: marker,
+          zoom: 10,
         });
         // Center and zoom onto the clicked marker
         map.setCenter(e.latLng);
-        map.setZoom(10);
+        map.setZoom(ctx.state.zoom);
         // display infoWindow but clear existing ones first
         clearMarker(selectedMarker);
         infoWindow.setContent(content);
         infoWindow.open(map, marker);
 
     };
+
     const mapsCallback = (google) => {
-      const {lat, lng} = this.state;
+      const {lat, lng, zoom} = this.state;
       const el = this.mapContainer;
       const map = new google.maps.Map(el, {
         disableDefaultUI: true,
-        zoom: 5,
+        zoom,
         center: {
           lat: lat,
           lng: lng,
@@ -91,7 +95,7 @@ class App extends Component {
       infoWindow.addListener('closeclick', (evt) => {
         clearMarker(this.state.selectedMarker);        
       });
-      map.data.addListener('click', debounce(clickHandler, 200));
+      map.data.addListener('click', debounce(clickHandler(this), 200));
       this.setState({
         google,
         map,
@@ -108,7 +112,13 @@ class App extends Component {
       data,
     });
   }
-
+  /**
+   * @function handleOnChange
+   * Handles changes to the slider's value. 
+   * 
+   * @param {Event} evt - MouseEvent. Not used
+   * @param {number} value - the slider value.
+  */
   handleOnChange = (evt, value) => {
     /*
       Clear any visible markers if the user changes the slider position 
@@ -118,13 +128,17 @@ class App extends Component {
     clearMarker(this.state.selectedMarker);
     this.setState({
       filter: parseInt(value, 10),
-      selectedEvent: {},
+      selectedEvent: null,
       selectedMarker: null
     });
   }
-
+  /**
+   * @function handleDateChanged
+   * Callback for the DatePicker's onChange.
+   * @param {Event} evt
+   * @param {Date} date
+  */
   handleDateChanged = (evt, date) => {
-    console.log(date);
     const {data} = this.state;
     const current = data.metadata ? 
                     data.metadata.generated :
@@ -137,7 +151,10 @@ class App extends Component {
       }
     });
   }
-
+  /**
+   * @function handleMenuClicked
+   * Handles the onClick event fired by the Menu Icon
+  */
   handleMenuClicked = () => {
     this.setState((prevState, props) => {
       return {
@@ -147,7 +164,7 @@ class App extends Component {
   }
 
   render() {
-    const { data, map, selectedEvent, filter, sidebarOpened } = this.state;
+    const { data, map, filter, sidebarOpened } = this.state;
     const isMapReady = map !== null;
     const currentDate = data.metadata ? 
                         new Date(data.metadata.generated) : 
