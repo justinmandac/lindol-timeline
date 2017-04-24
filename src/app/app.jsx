@@ -37,6 +37,7 @@ class App extends Component {
       map: null,
       data: {}, // data from API
       zoom: 5, 
+      showAll: false,
       selectedEvent: null,
       selectedMarker: null,
       filter: 0,// filter value in days,
@@ -162,9 +163,19 @@ class App extends Component {
       };
     });
   }
+  /**
+   * @function handleSeeAllToggle
+   * @param {Proxy} evt
+   * @param {boolean} showAll
+  */
+  handleSeeAllToggle = (evt, showAll) => {
+    this.setState({
+      showAll,
+    });
+  }
 
   render() {
-    const { data, map, filter, sidebarOpened } = this.state;
+    const { data, map, filter, sidebarOpened, showAll } = this.state;
     const isMapReady = map !== null;
     const currentDate = data.metadata ? 
                         new Date(data.metadata.generated) : 
@@ -176,8 +187,12 @@ class App extends Component {
     const minDate = getDateAgo(100);
 
     if (isMapReady) {
-      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, 
-                                     dailyComparator(filter)));
+      if(!showAll) {
+        map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, 
+                                      dailyComparator(filter)));
+      } else {
+        map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, null));        
+      }
       map.data.addGeoJson(data);
     }
 
@@ -197,7 +212,11 @@ class App extends Component {
           className="mapContainer"
         />
         <EarthquakeAppBottomBar>
-          <EventControls onChange={this.handleOnChange} value={filter}/>
+          <EventControls
+           onChange={this.handleOnChange}
+           onSeeAllToggle={this.handleSeeAllToggle}
+           value={filter}
+          />
         </EarthquakeAppBottomBar>
       </section>
       <MainDrawer 

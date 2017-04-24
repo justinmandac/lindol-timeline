@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Slider from 'material-ui/slider';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
+import Toggle from 'material-ui/Toggle';
 
 const sliderStyles = {
   marginTop: '0px',
@@ -36,7 +37,7 @@ class EventControls extends Component {
   }
 
   render() {
-    const { value } = this.props;
+    const { value, onSeeAllToggle } = this.props;
     return (<div className="event-details__controls">
       <Subheader style={subHeaderStyles}>Filter</Subheader>
       <Slider
@@ -45,6 +46,13 @@ class EventControls extends Component {
         sliderStyle={sliderStyles}
         onChange={this.handleOnChange}
       />
+      <div className="event-details__toggles">
+         <Subheader style={subHeaderStyles}>Toggles</Subheader>
+        <Toggle
+          label="Show All"
+          onToggle={onSeeAllToggle}
+        />         
+      </div>
     </div>);
   }
 }
@@ -52,11 +60,13 @@ class EventControls extends Component {
 
 EventControls.defaultProps = {
   onChange: () => {},
+  onSeeAllToggle: () => {},
   value: 0,
 };
 
 EventControls.propTypes = {
   onChange: PropTypes.func,
+  onSeeAllToggle: PropTypes.func,
   value: PropTypes.number
 };
 
