@@ -15136,7 +15136,6 @@ var App = function (_Component) {
         // is clicked
         infoWindow.addListener('closeclick', function (evt) {
           clearMarker(_this2.state.selectedMarker);
-          _this2.state.map.setZoom(5);
         });
         map.data.addListener('click', (0, _debounce2.default)(clickHandler, 200));
         _this2.setState({
