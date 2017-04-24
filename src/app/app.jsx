@@ -89,8 +89,7 @@ class App extends Component {
       // clear the marker when the infoWindow's close button
       // is clicked
       infoWindow.addListener('closeclick', (evt) => {
-        clearMarker(this.state.selectedMarker);
-        this.state.map.setZoom(5);
+        clearMarker(this.state.selectedMarker);        
       });
       map.data.addListener('click', debounce(clickHandler, 200));
       this.setState({
