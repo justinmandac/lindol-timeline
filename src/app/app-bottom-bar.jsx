@@ -21,11 +21,11 @@ const EarthquakeAppBottomBar = props => <div className="event-details">
 </div>;
 
 EarthquakeAppBottomBar.defaultProps = {
-  children: [],
+  children: {},
 };
 
 EarthquakeAppBottomBar.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.objectOf(PropTypes.any),
 };
 
 

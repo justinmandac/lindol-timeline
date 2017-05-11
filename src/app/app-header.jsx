@@ -21,7 +21,7 @@ const pickerTextFieldStyle = {
 /* eslint react/prefer-stateless-function : "off"  */
 class EarthquakeAppHeader extends Component {
   render() {
-    const { onMenuClicked, onDateChanged, value } = this.props;
+    const { onMenuClicked, onDateChanged, value, currentDate } = this.props;
     const dateFromValue = getDateAgo(value);
     return (<header className="header">
       <IconButton
@@ -39,7 +39,7 @@ class EarthquakeAppHeader extends Component {
             formatDate={formatDate}
             textFieldStyle={pickerTextFieldStyle}
             onChange={onDateChanged}
-            maxDate={new Date()}
+            maxDate={currentDate}
           />
         </div>
       </Paper>

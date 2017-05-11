@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import debounce from 'debounce';
+import API from './api.js';
 
 import EventDetails from './event-details.jsx';
 import EventControls from './event-controls.jsx';
@@ -15,7 +16,7 @@ import { getDiff } from './utils/date-formatter';
 GoogleMapsLoader.KEY = 'AIzaSyBkpSg1zTJoZxGqVyfaZmQ26j6W-LPlb-s';
 GoogleMapsLoader.REGION = 'PH';
 
-const generateInfoWindow = (text) => 
+const generateInfoWindow = (text) =>
   `<div class="info-window">${text}</div>`
 
 const clearMarker = (marker) => {
@@ -30,6 +31,7 @@ class App extends Component {
     this.state = {
       lat: props.lat,
       lng: props.lng,
+      currentDate: null,
       google: null,
       map: null,
       data: {},
@@ -41,12 +43,19 @@ class App extends Component {
     };
   }
 
+  componentWillMount() {
+
+    API(this.props.lat, this.props.lng, 942).then(data => {
+      this.setData(data);
+    });
+  }
+
   componentDidMount() {
     const clickHandler = (e) => {
         console.log(e);
         const {
-          map, 
-          infoWindow, 
+          map,
+          infoWindow,
           google,
           selectedMarker
         } = this.state;
@@ -81,7 +90,8 @@ class App extends Component {
         mapTypeId: 'roadmap',
       }); /* eslint no-new: "off" */
       let infoWindow;
-      // initialize map data points style      
+
+      // initialize map data points style
       infoWindow = new google.maps.InfoWindow();
       // clear the marker when the infoWindow's close button
       // is clicked
@@ -93,7 +103,7 @@ class App extends Component {
         google,
         map,
         infoWindow
-      });      
+      });
     };
 
     // Load Google Maps
@@ -103,6 +113,7 @@ class App extends Component {
   setData(data) {
     this.setState({
       data,
+      currentDate: new Date(data.metadata.generated)
     });
   }
 
@@ -130,21 +141,28 @@ class App extends Component {
   }
 
   render() {
-    const { data, map, selectedEvent, filter, sidebarOpened } = this.state;
+    const { data,
+            map,
+            selectedEvent,
+            filter,
+            sidebarOpened,
+            currentDate
+          } = this.state;
     const isMapReady = map !== null;
 
     if (isMapReady) {
-      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE, 
+      map.data.setStyle(initGetCircle(google.maps.SymbolPath.CIRCLE,
                                      dailyComparator(filter)));
       map.data.addGeoJson(data);
     }
 
-    return (<div className="app">      
-      <EarthquakeAppHeader 
-        value={filter} 
+    return (<div className="app">
+      <EarthquakeAppHeader
+        value={filter}
+        currentDate={currentDate}
         onMenuClicked={this.handleMenuClicked}
         onDateChanged={this.handleDateChanged}
-      >        
+      >
       </EarthquakeAppHeader>
       <section>
         <div
@@ -153,10 +171,10 @@ class App extends Component {
           className="mapContainer"
         />
         <EarthquakeAppBottomBar>
-          <EventControls onChange={this.handleOnChange} value={filter}/>     
+          <EventControls onChange={this.handleOnChange} value={filter} currentDate={currentDate}/>
         </EarthquakeAppBottomBar>
       </section>
-      <MainDrawer 
+      <MainDrawer
         open={sidebarOpened}
         docked={false}
         width={280}

@@ -5,7 +5,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from 'app/app.jsx';
-import API from 'app/api';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // TODO: Move API call to app and enable acquisition of events 100 days prior to current date
@@ -19,9 +18,5 @@ const AppRender = <MuiThemeProvider>
 </MuiThemeProvider>;
 
 injectTapEventPlugin();
-
-API(lat, lng, radius).then((data) => {
-    ref.setData(data);
-});
 
 ReactDOM.render(AppRender, document.getElementById('root'));
