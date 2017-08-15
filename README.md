@@ -9,7 +9,7 @@
 `npm run devserver`
 
 ## Build for Github Pages
-Run the following command to push updates to the page's Github Page. 
+Run the following command to push updates to the page's Github Page.
 
 `npm run build:gh-pages`
 
@@ -19,7 +19,8 @@ This updates your local copy of `dist/`, copies the contents to `doc/` then comm
 Loads data from USGS. The application acquires events that have occured in the last 100 days from the time the user accesses the page.
 
 ## Road Map
+- Use GFZ as primary data source. Add RSS parsing for data.
 - Add and overlay for Population Density
 - Add an overlay for Fault lines
 - Heatmap for earthquake frequency. Display highest and average magnitude per area.
-- Content for sidebar. 
+- Content for sidebar.
