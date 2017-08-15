@@ -16,6 +16,11 @@ function initGetCircle(symbol, timeComparator) {
 
     if (typeof timeComparator === 'function') {
       style.visible = timeComparator(item.f.time);
+    } else {
+      /**
+       * Disable filtering if the function doesn't get a comparator.
+      */
+      style.visible = true;
     }
 
     return style;
