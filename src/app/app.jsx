@@ -186,21 +186,16 @@ class App extends Component {
   }
 
   render() {
-<<<<<<< HEAD
     const { data,
             map,
             selectedEvent,
             filter,
             sidebarOpened,
-            currentDate
+            currentDate,
+            showAll,
           } = this.state;
-=======
-    const { data, map, filter, sidebarOpened, showAll } = this.state;
->>>>>>> b32303c60ef0d3aee3692aff3ccd46d58ea3a70b
     const isMapReady = map !== null;
-    const currentDate = data.metadata ?
-                        new Date(data.metadata.generated) :
-                        new Date();
+
     /**
      * Currently limiting the retrieved dataset from the current date to
      * the past 100 days.
