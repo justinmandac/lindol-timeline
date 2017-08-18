@@ -12,78 +12,20 @@ html, body {
     }
 }
 
+
+#root, .app-map {
+    min-height: 100vh;
+}
+
+#earthquake-app-map {
+    width: 100%;
+    height: 100vh;
+}
 .container {
     @include grid-container;
 }
 
-/**
-    #EVENT-DETAILS
-*/
-
-.event-details {       
-    color: #434343;
-    height: $controls-height;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    z-index: 100;
-}
-
-
-.event-details__paper-wrapper {
-    max-width: 300px;
-    width: 100%;
-    margin: 0 auto;
-    height: 100%;
-}
-
-.event-details__wrapper {
-    @include grid-column(12);
-    /*
-        use padding to prevent the column from collapsing
-        when there's still no event selected.
-    */
-    padding: 1px;
+@media only screen and (min-width: 720px) {
 
 }
-.event-details__controls {
-    @include grid-column(12);
-}
 
-.mapContainer {
-    width: 100%;
-    height: 100vh;
-}
-
-/**
-    #HEADER
-*/
-
-.header {
-    position: fixed;
-    top: 0px;
-    z-index: 99;
-    width: 100%;
-}
-
-.header__date-card {
-    margin: 8px auto 0 auto;
-    width: 200px;
-    text-align: center;
-    padding: 0px 4px;
-}
-
-.header .menu-icon {
-    float: left;
-    cursor: pointer;
-}
-
-#headerDatePicker {
-    text-align: center;
-}
-
-@media only screen and (min-width: 680px) {
-    .event-details__paper-wrapper {
-        max-width: 600px;
-    }
-}

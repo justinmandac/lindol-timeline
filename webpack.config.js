@@ -38,10 +38,11 @@ module.exports = {
         })
     ],
     resolve: {
+        extensions : ['.js', '.jsx', '.scss'],
         modules: [
             path.resolve('./src'),
             path.resolve('./node_modules')
-        ]
+        ],
     }
 
 }
