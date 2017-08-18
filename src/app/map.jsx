@@ -19,7 +19,7 @@ export default class Map extends Component {
     this.map_ = new L.Map('earthquake-app-map', {center: [PH_CENTER_LAT, PH_CENTER_LONG], zoom: 7});
 
     gl.addTo(this.map_);
-    
+
     (new WVFLayer())
       .init(L, this.map_)
       .load();

@@ -4,16 +4,15 @@ import EqDrawer from './drawer.component';
 import Map from './map';
 
 class App extends Component {
+  retrieveDate({start, end}) {
+    console.log('Date clicked', start, end);
+  }
   render() {    
     return (
       <div>
         <AppBar />
-        <div className="map-container container">
-          <div className="app-map">
-            <Map />
-          </div>
-          <EqDrawer />
-        </div>
+        <Map />
+        <EqDrawer handleDateClick={this.retrieveDate.bind(this)}/>
       </div>
     );
   }
