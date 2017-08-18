@@ -22,12 +22,13 @@ class App extends Component {
       });
     });
   }
-  render() {    
+  render() {
     return (
-      <div>
-        <AppBar />
-        <Map geojson={this.state.geojson}/>
-        <EqDrawer handleDateClick={this.retrieveDate.bind(this)}/>
+      <div>        
+        <div className="app-map">
+          <Map geojson={this.state.geojson}/>
+          <EqDrawer handleDateClick={this.retrieveDate.bind(this)}/>
+        </div>
       </div>
     );
   }

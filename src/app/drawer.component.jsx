@@ -3,11 +3,6 @@ import DatePicker from 'material-ui/DatePicker';
 import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 
-export const drawerStyle = {
-  top: '64px',
-  position: 'absolute',
-};
-
 export default class EqDrawer extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +27,7 @@ export default class EqDrawer extends Component {
 
   render() {
     return (
-      <Drawer containerStyle={drawerStyle} openSecondary={true} zDepth={1} >
+      <Drawer zDepth={1} >
         <DatePicker onChange={this.setDate.bind(this, 'start')} hintText="Start Date" autoOk={true} />
         <DatePicker onChange={this.setDate.bind(this, 'end')} hintText="End Date" autoOk={true} />
         <RaisedButton label="Filter" onClick={this.handleClick.bind(this)}/>
