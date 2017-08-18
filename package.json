@@ -48,8 +48,11 @@
   },
   "dependencies": {
     "accoutrement-reset": "^1.0.2",
+    "d3": "^4.10.0",
     "debounce": "^1.0.0",
-    "google-maps": "^3.2.1",
+    "leaflet": "^1.2.0",
+    "mapbox-gl": "^0.39.1",
+    "mapbox-gl-leaflet": "git+https://github.com/mapbox/mapbox-gl-leaflet.git",
     "material-ui": "^0.17.4",
     "prop-types": "^15.5.8",
     "react": "^15.5.3",

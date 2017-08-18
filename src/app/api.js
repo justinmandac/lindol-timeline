@@ -53,7 +53,6 @@ function loadData(lat, lng, radius) {
 }
 
 /**
- *
  * Acquires earthquakes around the specified latitude and longitude within
  * a given radius.
  *
@@ -65,15 +64,15 @@ function loadData(lat, lng, radius) {
  *
  * @return {!Promise<!Object>}
  */
-export function getEvents(lat, lng, radius, startDate, endDate = new Date()) {
+export default function getEvents(lat, lng, radius, startDate, endDate = new Date()) {
   const xhr = new XMLHttpRequest();
   const start = (new Date(startDate)).toISOString();
   const end = (new Date(endDate)).toISOString();
 
   return new Promise((resolve, reject) => {
     xhr.open('GET',
-             `${URL}&starttime=${start}&endtime=${end}&
-             latitude=${lat}&longitude=${lng}&maxradius=${radius}`);
+             `${URL}&starttime=${start}&endtime=${end
+            }&latitude=${lat}&longitude=${lng}&maxradiuskm=${radius}`);
 
     xhr.onload = ({ target }) => {
       const { status, response } = target;
@@ -89,6 +88,12 @@ export function getEvents(lat, lng, radius, startDate, endDate = new Date()) {
         reject(target);
       }
     };
+
+    xhr.onerror = ({ target }) => {
+      reject(target);
+    };
+
+    xhr.send();
   });
 }
 
