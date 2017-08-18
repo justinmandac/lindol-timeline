@@ -96,5 +96,3 @@ export default function getEvents(lat, lng, radius, startDate, endDate = new Dat
     xhr.send();
   });
 }
-
-export default loadData;
