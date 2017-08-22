@@ -40,7 +40,7 @@ export default class EqDrawer extends Component {
     const {start, end} = this.state;
     return (
       <Drawer open={this.props.open} zDepth={1} >
-        <h2 className="drawer__header">PH Earthquakes</h2>
+        <h2 className="drawer__header">{this.props.title}</h2>
         <DatePicker value={start} container="inline" onChange={this.setDate.bind(this, 'start')} hintText="Start Date" autoOk={true} />
         <DatePicker value={end} container="inline" onChange={this.setDate.bind(this, 'end')} hintText="End Date" autoOk={true} />
         <RaisedButton label="Filter" onClick={this.handleClick.bind(this)}/>

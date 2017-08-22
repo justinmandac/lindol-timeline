@@ -8,6 +8,7 @@ import {PH_CENTER_LONG, PH_CENTER_LAT, DEFAULT_RADIUS} from './constants';
 class App extends Component {
   constructor() {
     super();
+    this.title = 'PH Earthquakes';
     this.state = {
       geojson: {},
       isSmallWidth: false,
@@ -47,13 +48,17 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppBar onLeftIconButtonTouchTap={this.handleMenuClick.bind(this)}
-                className="app-bar"
+        <AppBar
+          title={this.title}
+          onLeftIconButtonTouchTap={this.handleMenuClick.bind(this)}
+          className="app-bar"
         />
         <div className="app-map">
           <Map geojson={this.state.geojson}/>
-          <EqDrawer open={this.state.isDrawerOpen}
-                    handleDateClick={this.retrieveDate.bind(this)}
+          <EqDrawer
+            title={this.title}
+            open={this.state.isDrawerOpen}
+            handleDateClick={this.retrieveDate.bind(this)}
           />
         </div>
       </div>
