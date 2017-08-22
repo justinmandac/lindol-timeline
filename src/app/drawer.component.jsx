@@ -15,21 +15,33 @@ export default class EqDrawer extends Component {
     this.props.handleDateClick(this.state);
   }
 
-  setDate(dateType,b,value) {
+  setDate(dateType, b, value) {
     this.setState((prevState, props) => {
       const data = {};
       data[dateType] = value;
+
+      if (dateType === 'start' &&
+          value.getTime() > prevState['end'].getTime()) {
+        return prevState;
+      }
+
+      if (dateType === 'end' &&
+          value.getTime() > (new Date()).getTime()) {
+        return prevState;
+      }
+
       const state = Object.assign({}, prevState, data);
-      console.log(state);
+
       return state;
     });
   }
 
   render() {
+    const {start, end} = this.state;
     return (
       <Drawer zDepth={1} >
-        <DatePicker onChange={this.setDate.bind(this, 'start')} hintText="Start Date" autoOk={true} />
-        <DatePicker onChange={this.setDate.bind(this, 'end')} hintText="End Date" autoOk={true} />
+        <DatePicker value={start} container="inline" onChange={this.setDate.bind(this, 'start')} hintText="Start Date" autoOk={true} />
+        <DatePicker value={end} container="inline" onChange={this.setDate.bind(this, 'end')} hintText="End Date" autoOk={true} />
         <RaisedButton label="Filter" onClick={this.handleClick.bind(this)}/>
       </Drawer>
     );
