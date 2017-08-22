@@ -58,69 +58,18 @@ html, body {
   html *, body * {
     font-family: 'Roboto', sans-serif !important; }
 
+#root, .app-map {
+  min-height: 100vh; }
+
+#earthquake-app-map {
+  width: 100%;
+  height: 100vh; }
+
 .container::after {
   clear: both;
   content: "";
   display: block; }
 
-/**
-    #EVENT-DETAILS
-*/
-.event-details {
-  color: #434343;
-  height: 100px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  z-index: 100; }
-
-.event-details__paper-wrapper {
-  max-width: 300px;
-  width: 100%;
-  margin: 0 auto;
-  height: 100%; }
-
-.event-details__wrapper {
-  width: calc(100% - 40px);
-  float: left;
-  margin-left: 20px;
-  /*
-        use padding to prevent the column from collapsing
-        when there's still no event selected.
-    */
-  padding: 1px; }
-
-.event-details__controls {
-  width: calc(100% - 40px);
-  float: left;
-  margin-left: 20px; }
-
-.mapContainer {
-  width: 100%;
-  height: 100vh; }
-
-/**
-    #HEADER
-*/
-.header {
-  position: fixed;
-  top: 0px;
-  z-index: 99;
-  width: 100%; }
-
-.header__date-card {
-  margin: 8px auto 0 auto;
-  width: 200px;
-  text-align: center;
-  padding: 0px 4px; }
-
-.header .menu-icon {
-  float: left;
-  cursor: pointer; }
-
-#headerDatePicker {
-  text-align: center; }
-
-@media only screen and (min-width: 680px) {
-  .event-details__paper-wrapper {
-    max-width: 600px; } }
+.drawer__header {
+  padding: 8px;
+  background-color: #737373; }
