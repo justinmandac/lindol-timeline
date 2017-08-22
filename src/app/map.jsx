@@ -5,11 +5,19 @@ import 'mapbox-gl-leaflet/leaflet-mapbox-gl';
 import WVFLayer from './wvf.layer';
 import {PH_CENTER_LAT, PH_CENTER_LONG, MAPBOX_TOKEN, MAP_BOX_STYLE} from './constants';
 
+const geojsonMarkerOptions = {
+  radius: 5,
+  //fillColor: "#ff7800",
+  opacity: 1,
+  fillOpacity: 0.8
+};
+
 export default class Map extends Component {
   constructor(props) {
     super(props);
     this.map_ = {};
     this.layer_ = {};
+    this.popup_ = L.popup();
   }
 
   componentDidMount() {
@@ -24,23 +32,38 @@ export default class Map extends Component {
     (new WVFLayer())
       .init(L, this.map_)
       .load();
+
+  }
+
+  displayPopUp(e) {
+    this.popup_
+    .setLatLng(e.latlng)
+    .setContent("You clicked the map at ")
+    .openOn(this.map_);
   }
 
   render() {
-    const geojsonMarkerOptions = {
-      radius: 5,
-      fillColor: "#ff7800",
-      opacity: 1,
-      fillOpacity: 0.8
-    };
+  // Check if map is defined.
+  const isMapDefined = !!Object.keys(this.map_).length;
 
-  if(Object.keys(this.map_).length) {
+  if(isMapDefined) {
+    // Clear everything when props change.
     this.map_.removeLayer(this.layer_);
+
     this.layer_ = L.geoJSON(this.props.geojson.features, {
       pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions);
+        const style = Object.assign({}, geojsonMarkerOptions, {
+          radius: Math.exp(feature.properties.mag/1.01-0.13)/10,
+        });
+        return L.circleMarker(latlng, style);
       }
+     })
+     .bindPopup((e) => {
+       return `
+          ${Date(e.feature.updated)}<br />
+          ${e.feature.properties.title}`;
      });
+
     this.layer_.addTo(this.map_);
   }
 
