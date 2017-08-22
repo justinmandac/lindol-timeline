@@ -72,4 +72,13 @@ html, body {
 
 .drawer__header {
   padding: 8px;
-  background-color: #737373; }
+  background-color: #00BCD4;
+  height: 48px; }
+
+.app-bar {
+  display: none !important; }
+
+@media only screen and (max-width: 720px) {
+  .app-bar {
+    display: flex !important;
+    z-index: 2000 !important; } }

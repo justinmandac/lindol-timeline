@@ -44547,13 +44547,37 @@ var App = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
+    _this.title = 'PH Earthquakes';
     _this.state = {
-      geojson: {}
+      geojson: {},
+      isSmallWidth: false,
+      isDrawerOpen: true
     };
     return _this;
   }
 
   _createClass(App, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (window.innerWidth <= 720) {
+        this.setState(function (prevState, props) {
+          return Object.assign(prevState, {
+            isSmallWidth: true,
+            isDrawerOpen: false
+          });
+        });
+      }
+    }
+  }, {
+    key: 'handleMenuClick',
+    value: function handleMenuClick() {
+      this.setState(function (prevState, props) {
+        return Object.assign(prevState, {
+          isDrawerOpen: !prevState.isDrawerOpen
+        });
+      });
+    }
+  }, {
     key: 'retrieveDate',
     value: function retrieveDate(_ref) {
       var _this2 = this;
@@ -44561,7 +44585,6 @@ var App = function (_Component) {
       var start = _ref.start,
           end = _ref.end;
 
-      console.log('Date clicked', start, end);
       (0, _api2.default)(_constants.PH_CENTER_LAT, _constants.PH_CENTER_LONG, _constants.DEFAULT_RADIUS, start, end).then(function (geojson) {
         _this2.setState(function (prevState, props) {
           var newState = { geojson: geojson };
@@ -44575,11 +44598,20 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_AppBar2.default, {
+          title: this.title,
+          onLeftIconButtonTouchTap: this.handleMenuClick.bind(this),
+          className: 'app-bar'
+        }),
         _react2.default.createElement(
           'div',
           { className: 'app-map' },
           _react2.default.createElement(_map2.default, { geojson: this.state.geojson }),
-          _react2.default.createElement(_drawer2.default, { handleDateClick: this.retrieveDate.bind(this) })
+          _react2.default.createElement(_drawer2.default, {
+            title: this.title,
+            open: this.state.isDrawerOpen,
+            handleDateClick: this.retrieveDate.bind(this)
+          })
         )
       );
     }
@@ -44908,11 +44940,11 @@ var EqDrawer = function (_Component) {
 
       return _react2.default.createElement(
         _Drawer2.default,
-        { zDepth: 1 },
+        { open: this.props.open, zDepth: 1 },
         _react2.default.createElement(
           'h2',
           { className: 'drawer__header' },
-          'PH Earthquakes'
+          this.props.title
         ),
         _react2.default.createElement(_DatePicker2.default, { value: start, container: 'inline', onChange: this.setDate.bind(this, 'start'), hintText: 'Start Date', autoOk: true }),
         _react2.default.createElement(_DatePicker2.default, { value: end, container: 'inline', onChange: this.setDate.bind(this, 'end'), hintText: 'End Date', autoOk: true }),
