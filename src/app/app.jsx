@@ -10,10 +10,31 @@ class App extends Component {
     super();
     this.state = {
       geojson: {},
+      isSmallWidth: false,
+      isDrawerOpen: true,
     };
   }
+
+  componentDidMount() {
+    if (window.innerWidth <= 720) {
+      this.setState((prevState, props) => {
+        return Object.assign(prevState, {
+          isSmallWidth: true,
+          isDrawerOpen: false,
+        })
+      });
+    }
+  }
+
+  handleMenuClick() {
+    this.setState((prevState, props) => {
+      return Object.assign(prevState, {
+        isDrawerOpen: !prevState.isDrawerOpen,
+      })
+    });
+  }
+
   retrieveDate({start, end}) {
-    console.log('Date clicked', start, end);
     getEvents(PH_CENTER_LAT, PH_CENTER_LONG, DEFAULT_RADIUS, start, end)
     .then((geojson) => {
       this.setState((prevState, props) => {
@@ -22,12 +43,18 @@ class App extends Component {
       });
     });
   }
+
   render() {
     return (
-      <div>        
+      <div>
+        <AppBar onLeftIconButtonTouchTap={this.handleMenuClick.bind(this)}
+                className="app-bar"
+        />
         <div className="app-map">
           <Map geojson={this.state.geojson}/>
-          <EqDrawer handleDateClick={this.retrieveDate.bind(this)}/>
+          <EqDrawer open={this.state.isDrawerOpen}
+                    handleDateClick={this.retrieveDate.bind(this)}
+          />
         </div>
       </div>
     );
