@@ -25,6 +25,11 @@ html, body {
     @include grid-container;
 }
 
+.drawer__header {
+    padding: 8px;
+    background-color: #737373;
+}
+
 @media only screen and (min-width: 720px) {
 
 }
