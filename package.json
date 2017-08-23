@@ -8,7 +8,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "node node_modules/webpack/bin/webpack.js; cp -r data/ dist/data/",
+    "prebuild" : "cp -r data/ dist/data/",
+    "build": "node ./node_modules/webpack/bin/webpack.js",
     "devserver": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base dist/",
     "test": "node node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.config-test.js \"src/app/test/*.test.js\"",
     "preexport": "rm -rf docs/; mkdir docs/;",
