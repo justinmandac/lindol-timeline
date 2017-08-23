@@ -25,6 +25,15 @@ class App extends Component {
         })
       });
     }
+
+    const then = new Date();
+
+    then.setDate(then.getDate() - 7);
+
+    this.retrieveDate({
+      start: then,
+      end: new Date(),
+    });
   }
 
   handleMenuClick() {
