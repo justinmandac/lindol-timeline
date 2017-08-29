@@ -31,7 +31,7 @@ class App extends Component {
       viewState.isSmallWidth = true;
       viewState.isDrawerOpen = false;
     }
-
+    console.log('document resized');
     this.setState((prevState, props) => Object.assign(prevState, viewState));
   }
 
@@ -40,7 +40,7 @@ class App extends Component {
 
     // Set initial state of the view on load.
     this.handleDocumentResize();
-    document.addEventListener('resize', () => this.handleDocumentResize());
+    window.addEventListener('resize', () => this.handleDocumentResize());
 
     then.setDate(then.getDate() - 7);
 
