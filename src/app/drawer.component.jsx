@@ -35,6 +35,7 @@ export default class EqDrawer extends Component {
 
       const state = Object.assign({}, prevState, data);
 
+      this.props.handleDateChange(state);
       return state;
     });
   }
@@ -44,9 +45,12 @@ export default class EqDrawer extends Component {
     return (
       <Drawer open={this.props.open} zDepth={1} >
         <h2 className="drawer__header">{this.props.title}</h2>
-        <DatePicker value={start} onChange={this.setDate.bind(this, 'start')} hintText="Start Date" autoOk={true} />
-        <DatePicker value={end} onChange={this.setDate.bind(this, 'end')} hintText="End Date" autoOk={true} />
-        <RaisedButton label="Filter" onClick={this.handleClick.bind(this)}/>
+        <div className="picker-container">
+        <label id="startLabel">Start Date</label>
+        <DatePicker id="startPicker" value={start} onChange={this.setDate.bind(this, 'start')} autoOk={true} />
+        <label id="endLabel">End Date</label>
+        <DatePicker id="endPicker" value={end} onChange={this.setDate.bind(this, 'end')} autoOk={true} />
+        </div>
       </Drawer>
     );
   }

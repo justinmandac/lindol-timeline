@@ -63,6 +63,13 @@ class App extends Component {
     .then((geojson) => {
       this.setState((prevState, props) => {
         const newState = { geojson };
+        
+        if (window.innerWidth <= 720) {
+          // On smaller device widths, hide the sidebar once
+          // the selected date range has changed.
+          newState.isDrawerOpen = false;
+        }
+
         return Object.assign({}, prevState, newState);
       });
     });
@@ -81,7 +88,7 @@ class App extends Component {
           <EqDrawer
             title={this.title}
             open={this.state.isDrawerOpen}
-            handleDateClick={this.retrieveDate.bind(this)}
+            handleDateChange={this.retrieveDate.bind(this)}
           />
         </div>
       </div>
