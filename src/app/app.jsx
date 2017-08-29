@@ -16,17 +16,31 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  /**
+   * Sets the necessary view changes when the viewport resizes.
+   * Needed to set flags that will be passed down to child components
+   * who will then respond to the viewport-dependent flags. 
+   */
+  handleDocumentResize() {
+    const viewState = {
+      isSmallWidth: false,
+      isDrawerOpen: true,
+    };
+    
     if (window.innerWidth <= 720) {
-      this.setState((prevState, props) => {
-        return Object.assign(prevState, {
-          isSmallWidth: true,
-          isDrawerOpen: false,
-        })
-      });
+      viewState.isSmallWidth = true;
+      viewState.isDrawerOpen = false;
     }
 
+    this.setState((prevState, props) => Object.assign(prevState, viewState));
+  }
+
+  componentDidMount() {
     const then = new Date();
+
+    // Set initial state of the view on load.
+    this.handleDocumentResize();
+    document.addEventListener('resize', () => this.handleDocumentResize());
 
     then.setDate(then.getDate() - 7);
 
