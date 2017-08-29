@@ -11,6 +11,7 @@ export default class EqDrawer extends Component {
       end: new Date(),
     };
   }
+
   handleClick() {
     this.props.handleDateClick(this.state);
   }
@@ -18,15 +19,17 @@ export default class EqDrawer extends Component {
   setDate(dateType, b, value) {
     this.setState((prevState, props) => {
       const data = {};
+      const time = value.getTime();
+
       data[dateType] = value;
 
       if (dateType === 'start' &&
-          value.getTime() > prevState['end'].getTime()) {
+          time > prevState.end.getTime()) {
         return prevState;
       }
 
       if (dateType === 'end' &&
-          value.getTime() > (new Date()).getTime()) {
+          time > (new Date()).getTime()) {
         return prevState;
       }
 
