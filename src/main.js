@@ -1,19 +1,8 @@
-/* eslint-disable */
-import 'styles/index.scss';
-
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
-import App from 'app/app.jsx';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import App from './app/app';
 
-const AppRender = () => (
-  <MuiThemeProvider>
-      <App />
-  </MuiThemeProvider>
-);
+const appRoot = document.getElementById('root');
 
-injectTapEventPlugin();
-
-ReactDOM.render(<AppRender />, document.getElementById('root'));
+render(<App />, appRoot);
