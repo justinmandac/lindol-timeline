@@ -38,7 +38,7 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions : ['.js', '.jsx', '.scss'],
+        extensions : ['.js', '.jsx', '.scss', '.json'],
         modules: [
             path.resolve('./src'),
             path.resolve('./node_modules')
