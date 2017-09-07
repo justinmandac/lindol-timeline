@@ -7,14 +7,19 @@ import Map from './map/map';
 export default class App extends Component{
   constructor() {
     super();
+    this.state = {
+      headerVisible: true,
+      bottomControlsExpanded: false,
+    };
   }
 
   render() {
+    const { headerVisible, bottomControlsExpanded } = this.state;
     return (
       <div className="app">
-        <Header />
+        <Header visible={headerVisible} />
         <Map />
-        <BottomControls />
+        <BottomControls expanded={bottomControlsExpanded} />
       </div>
     );
   }
