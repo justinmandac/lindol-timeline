@@ -12,7 +12,7 @@
     "build": "node ./node_modules/webpack/bin/webpack.js",
     "postbuild": "cp -r data/ dist/data/",
     "serve:dev": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base dist/",
-    "test": "node node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.config-test.js \"src/app/test/*.test.js\"",
+    "test": "node --harmony node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.config-test.js \"src/app/**/*.spec.js\"",
     "preexport": "rm -rf docs/; mkdir docs/;",
     "export": "cp -r dist/ docs/",
     "build:gh-pages": "npm run build;npm run export",
