@@ -4,11 +4,11 @@
  */
 import React from 'react';
 
-const ExpandTrigger = () => (
-  <div className="expand-trigger">
-    <div className="-button">
+const ExpandTrigger = ({expanded, onClick}) => (
+  <div className={`expand-trigger ${expanded ? '-expanded' : ''}`}>
+    <button className="-button" onClick={onClick}>
       V
-    </div>
+    </button>
   </div>
 );
 
