@@ -1,6 +1,5 @@
-dist: trusty
 install: npm install
 test: npm test
 language: node_js
 node_js:
-  -"8"
+  - "8"
