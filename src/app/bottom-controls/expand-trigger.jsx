@@ -6,6 +6,10 @@ import React from 'react';
 
 const ExpandTrigger = () => (
   <div className="expand-trigger">
-    V
+    <div className="-button">
+      V
+    </div>
   </div>
 );
+
+export default ExpandTrigger;
