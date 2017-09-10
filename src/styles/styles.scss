@@ -12,6 +12,47 @@ html, body {
   position: relative;
 }
 
+.bottom-controls {
+  $peek-height: 32px;
+
+  background-color: #FFF;
+  bottom: 0;
+  height: 500px;
+  left: 0;
+  position: absolute;
+  transform: translateY(calc(100% - #{$peek-height}));
+  width: 100vw;
+  z-index: $header-z-index;
+  
+  > .-date-display {
+    height: $peek-height;
+    padding: 8px;
+    text-align: center;
+  }
+
+  > .expand-trigger {
+    position: absolute;    
+    top: -8px;
+    width: 100%;
+    z-index: 20;
+
+    .-button {
+      margin: 0 auto;
+    }
+  }
+}
+
+.expand-trigger {
+  .-button {
+    background-color: #FFF;
+    border-radius: 100%;
+    box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.2);
+    height: 16px;
+    text-align: center;
+    width: 16px;
+  }
+}
+
 .header {
   background-color: #FFF;
   height: 32px;
