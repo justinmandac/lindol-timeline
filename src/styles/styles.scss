@@ -24,6 +24,10 @@ html, body {
   width: 100vw;
   z-index: $header-z-index;
   
+  &.-expanded {
+    transform: translateY(0%);
+  }
+
   > .-date-display {
     height: $peek-height;
     padding: 8px;
@@ -45,11 +49,14 @@ html, body {
 .expand-trigger {
   .-button {
     background-color: #FFF;
+    border: 0px transparent;
     border-radius: 100%;
-    box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.2);
-    height: 16px;
+    box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.2);    
+    display: block;
+    height: 18px;
+    padding: 0;
     text-align: center;
-    width: 16px;
+    width: 18px;
   }
 }
 
