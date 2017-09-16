@@ -1,11 +1,27 @@
 import React from 'react';
 import ExpandTrigger from './expand-trigger';
+import { DateRangePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 
-const BottomControls = ({ expanded, onClick }) => (
+const BottomControls = ({ 
+    expanded,
+    onClick,
+    startDate,
+    endDate,
+    focusedInput,
+    onDatesChange,
+    onFocusChange}) => (
   <div className={`bottom-controls ${expanded ? '-expanded' : ''}`}>
     <ExpandTrigger expanded={expanded} onClick={onClick}/>
     <div className="-date-display">
-      2017/04/22 - 2017/04/28
+      <DateRangePicker
+            orientation="vertical"
+            startDate={startDate}
+            endDate={endDate}
+            focusedInput={focusedInput}
+            onDatesChange={onDatesChange}
+            onFocusChange={onFocusChange}
+      />
     </div>
     <div className="-events-container">
       <ul className="-events-list">

@@ -10,8 +10,9 @@ export default class App extends Component{
     this.state = {
       headerVisible: true,
       bottomControlsExpanded: false,
-      startDate: '',
-      endDate: '',
+      startDate: null,
+      endDate: null,
+      focusedInput: null,
     };
   }
 
@@ -25,13 +26,28 @@ export default class App extends Component{
          bottomControlsExpanded: !prevState.bottomControlsExpanded }));
   }
 
+  onDatesChange = ({ startDate, endDate }) => 
+    this.setState({ startDate, endDate })
+  onFocusChange = (focusedInput) => this.setState({ focusedInput })
+
   render() {
-    const { headerVisible, bottomControlsExpanded } = this.state;
+    const {
+      headerVisible,
+      bottomControlsExpanded,
+      startDate,
+      endDate,
+      focusedInput,
+    } = this.state;
     return (
       <div className="app">
         <Header visible={headerVisible} />
         <Map />
         <BottomControls 
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          focusedInput={focusedInput}
+          onDatesChange={this.onDatesChange}
+          onFocusChange={this.onFocusChange}
           expanded={bottomControlsExpanded}
           onClick={this.handleBottomTriggerClick.bind(this)}
         />
