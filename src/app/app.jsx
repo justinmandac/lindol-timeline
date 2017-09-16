@@ -10,6 +10,8 @@ export default class App extends Component{
     this.state = {
       headerVisible: true,
       bottomControlsExpanded: false,
+      startDate: '',
+      endDate: '',
     };
   }
 
