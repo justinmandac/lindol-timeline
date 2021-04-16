@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "accoutrement-reset": "^1.0.2",
-    "d3": "^4.10.0",
+    "d3": "^6.7.0",
     "debounce": "^1.0.0",
     "leaflet": "^1.2.0",
     "mapbox-gl": "^0.39.1",
